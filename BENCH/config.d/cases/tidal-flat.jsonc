@@ -1,0 +1,15 @@
+{
+  // TIDAL_FLAT
+  "TIDAL_FLAT_MUSTANG": {
+    "title": "TIDAL_FLAT (200 x 3 x 10 : 6000)",
+    "case": "TIDAL_FLAT",
+    "splitting": { "1": "1x1", "2": "2x1", "4": "4x1" },
+    "cppkeys": {
+      "MUSTANG": true,
+      "SEDIMENT": false,
+    },
+    "patches": {},
+    "check_outputs": ["tidal_flat_his.nc"],
+    "unsupported": ["restart", "openmp"],
+  },
+}

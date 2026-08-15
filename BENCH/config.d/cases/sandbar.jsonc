@@ -1,0 +1,15 @@
+{
+  // SANDBAR
+  "SANDBAR": {
+    "title": "SANDBAR - (720 x 1 x 20 : 1440)",
+    "case": "SANDBAR",
+    "plotphy": {
+      "plotphy_script": "./TEST_CASES/plot_sandbar.py",
+      "plotphy_script_input": "sandbar_his.nc",
+    },
+    "splitting": { "1": "1x1", "2": "2x1", "4": "4x1" },
+    "patches": {},
+    "check_outputs": ["sandbar_his.nc"],
+    "unsupported": ["restart", "openmp"],
+  },
+}

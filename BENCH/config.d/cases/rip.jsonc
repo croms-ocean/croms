@@ -1,0 +1,55 @@
+{
+  // RIP
+  "RIP": {
+    "title": "RIP - (48 x 48 x 20 : 1800)",
+    "case": "RIP",
+    "plotphy": {
+      "plotphy_script": "./TEST_CASES/plot_rip.py",
+      "plotphy_script_input": "rip_his.nc",
+    },
+    "cppkeys": {
+      "RIP": true,
+      "RIP_TOPO_2D": false,
+      "BISCA": false,
+      "NBQ": false,
+      "WAVE_MAKER": false,
+      "GRANDPOPO": false,
+    },
+    "splitting": { "1": "1x1", "2": "1x2", "4": "2x2" },
+    "patches": {},
+    "check_outputs": ["rip_his.nc"],
+    "unsupported": ["restart", "openmp"],
+  },
+  "RIP_GRANDPOPO": {
+    "title": "RIP - GRANDPOPO - (48 x 48 x 20 : 1800)",
+    "case": "RIP",
+    "cppkeys": {
+      "RIP": true,
+      "RIP_TOPO_2D": false,
+      "BISCA": false,
+      "NBQ": false,
+      "WAVE_MAKER": false,
+      "GRANDPOPO": true,
+    },
+    "splitting": { "1": "1x1", "2": "1x2", "4": "2x2" },
+    "patches": {},
+    "check_outputs": ["rip_his.nc"],
+    "unsupported": ["restart", "openmp"],
+  },
+  "RIP_TOPO_2D": {
+    "title": "RIP - TOPO_2D - (48 x 48 x 20 : 1800)",
+    "case": "RIP",
+    "cppkeys": {
+      "RIP": true,
+      "RIP_TOPO_2D": true,
+      "BISCA": false,
+      "NBQ": false,
+      "WAVE_MAKER": false,
+      "GRANDPOPO": false,
+    },
+    "splitting": { "1": "1x1", "2": "1x2", "4": "2x2" },
+    "patches": {},
+    "check_outputs": ["rip_his.nc"],
+    "unsupported": ["restart", "openmp"],
+  },
+}

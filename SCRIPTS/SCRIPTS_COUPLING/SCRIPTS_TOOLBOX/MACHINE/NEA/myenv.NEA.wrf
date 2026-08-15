@@ -1,0 +1,13 @@
+#-------------
+# WRF
+#-------------
+export NETCDF4=1
+export NETCDF_classic=1
+export WRFIO_NCD_LARGE_FILE_SUPPORT=1
+#-------------
+# WPS
+#-------------
+jasppath="/opt/r740xd/pub/spack/linux-rocky9-x86_64/intel-2022.2.1/jasper-1.900.1-7paflhap36er3q3qotxedsxg6eyievzb"
+export JASPERLIB="${jasppath}/lib"
+export JASPERINC="${jasppath}/include"
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${JASPERLIB}

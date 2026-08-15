@@ -1,0 +1,71 @@
+{
+  // DUNE
+  "DUNE_SEDIMENT": {
+    "title": "DUNE (50 x 1 x 20 : 1000)",
+    "case": "DUNE",
+    "plotphy": {
+      "plotphy_script": "./TEST_CASES/plot_dune.py",
+      "plotphy_script_input": "dune_his.nc",
+    },
+    "splitting": { "1": "1x1", "2": "2x1" },
+    "cppkeys": {
+      "SEDIMENT": true,
+      "MUSTANG": false,
+    },
+    "patches": {},
+    "check_outputs": ["dune_his.nc"],
+    "unsupported": ["restart", "openmp"],
+  },
+  "DUNE_MUSTANG": {
+    "title": "DUNE (50 x 1 x 20 : 1000)",
+    "case": "DUNE",
+    "plotphy": {
+      "plotphy_script": "./TEST_CASES/plot_dune.py",
+      "plotphy_script_input": "dune_his.nc",
+    },
+    "splitting": { "1": "1x1", "2": "2x1" },
+    "cppkeys": {
+      "MUSTANG": true,
+      "SEDIMENT": false,
+    },
+    "patches": {},
+    "check_outputs": ["dune_his.nc"],
+    "unsupported": ["restart", "openmp"],
+  },
+  // ANA_DUNE
+  "DUNE_ANA_DUNE": {
+    "title": "ANA_DUNE (150 x 1 x 20 : 3000)",
+    "case": "DUNE",
+    "splitting": { "1": "1x1", "2": "2x1", "4": "4x1" },
+    "cppkeys": {
+      "SEDIMENT": true,
+      "ANA_DUNE": true,
+      "MUSTANG": false,
+    },
+    "patches": {
+      "TEST_CASES/croco.in.Dune": {
+        "mode": "replace",
+        "what": "               TEST_CASES/sediment_dune.in",
+        "by": "               TEST_CASES/sediment_ana_dune.in",
+        "descr": "Set correct sediment.in file for ANA_DUNE",
+      },
+    },
+    "check_outputs": ["dune_his.nc"],
+    "unsupported": ["restart", "openmp"],
+  },
+  // DUNE3D
+  "DUNE_DUNE3D": {
+    "title": "DUNE3D (50 x 50 x 20 : 50000)",
+    "case": "DUNE",
+    "splitting": { "1": "1x1", "2": "2x1", "4": "2x2" },
+    "cppkeys": {
+      "SEDIMENT": true,
+      "DUNE3D": true,
+      "MUSTANG": false,
+    },
+    "patches": {},
+    "input_file": "TEST_CASES/croco.in.Dune3d",
+    "check_outputs": ["dune3d_his.nc"],
+    "unsupported": ["restart", "openmp"],
+  },
+}

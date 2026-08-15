@@ -1,0 +1,15 @@
+{
+  // SWASH
+  "SWASH": {
+    "title": "SWASH - (800 x 1 x 10 : 8000)",
+    "case": "SWASH",
+    "plotphy": {
+      "plotphy_script": "./TEST_CASES/plot_swash.py",
+      "plotphy_script_input": "swash_his.nc",
+    },
+    "splitting": { "1": "1x1", "2": "2x1", "4": "4x1", "6": "6x1", "8": "8x1" },
+    "patches": {},
+    "check_outputs": ["swash_his.nc"],
+    "unsupported": ["restart", "openmp"],
+  },
+}

@@ -1,0 +1,188 @@
+{
+  ///////////////////////////// IMPORTS ///////////////////////////////////////
+  "imports": {
+    "hosts": ["config.d/hosts/*"],
+    "cases": ["config.d/cases/*"],
+    "variants": ["config.d/variants/*"],
+  },
+  ///////////////////////////// TUNING ///////////////////////////////////////
+  "hosts": {
+    "@default": {
+      "ressources": {
+        "cpu": 8,
+        "gpu": 1,
+      },
+      "tuning": {
+        "gnu": {
+          "extra": "-march=native",
+          "standard": "-O2 -mcmodel=medium -fdefault-real-8 -fdefault-double-8 -std=legacy",
+          "debug": "-O0 -g -fdefault-real-8 -fdefault-double-8 -std=legacy -fbacktrace -ffpe-trap=invalid,zero,overflow -fbounds-check -finit-real=nan -finit-integer=8888",
+          "mpi_options": "",
+        },
+        "intel": {
+          "extra": "",
+          "standard": "-O2 -mcmodel=medium -fno-alias -i4 -r8 -fp-model precise",
+          "debug": "-O0 -g -i4 -r8 -traceback -check bounds -check uninit -CA -CB -CS -ftrapuv -fpe1",
+          "mpi_options": "",
+        },
+        "nvfortran": {
+          "extra": "-tp=native",
+          "standard": "-O2 -fast -g -r8 -i4 -mcmodel=medium",
+          "debug": "-O0 -fast -g -r8 -i4 -mcmodel=medium",
+          "mpi_options": "",
+        },
+        "environ": {
+          "OMP_PROC_BIND": "spread",
+        },
+        "hwloc_bind": {
+          "openmp": "",
+          "mpirun": "",
+        },
+      },
+    },
+  },
+  ////////////////////////////// DEFAULT SELECTION ///////////////////////////
+  "default_selection": {
+    "cases": ["BASIN", "BASIN-LARGE"],
+    "variants": ["@cpu"],
+  },
+  ////////////////////////////// PRE-SELECTIONS //////////////////////////////
+  "meta_variants": {
+    "@debug": ["sequential", "mpi-2", "mpi-4", "openmp-2", "openmp-4"],
+    "@debug-ifort": ["sequential-ifort", "mpi-ifort-4"],
+    "@debug-ifx": ["sequential-ifx", "mpi-ifx-4"],
+    "@wip-all": [
+      "sequential",
+      "openmp-2",
+      "openmp-4",
+      "openmp-8",
+      "mpi-2",
+      "mpi-4",
+      "mpi-8",
+      "openacc-native",
+    ],
+    "@cpu": [
+      "sequential",
+      "openmp-2",
+      "openmp-4",
+      "openmp-8",
+      "mpi-2",
+      "mpi-4",
+      "mpi-8",
+    ],
+    "@gpu": ["openacc-native"],
+    "@ci": ["sequential"],
+    "@nvhpc": [
+      "sequential",
+      "sequential-nvfortran",
+      "sequential-nvfortran-acc-multicore-2",
+      "sequential-nvfortran-acc-multicore-4",
+      "sequential-nvfortran-acc-multicore-8",
+      "openmp-8",
+    ],
+  },
+  "meta_cases": {
+    "@base": [
+      "BASIN",
+      "EQUATOR",
+      "GRAV_ADJ",
+      "IGW",
+      "ISOLITON",
+      "OVERFLOW",
+      "RIVER_PSOURCE_MASS",
+      "RIVER",
+      "UPWELLING",
+    ],
+    "@realist_base": [
+      "BENGUELA_LR_BRY_PISCES",
+      "BENGUELA_LR_TIDES_BULK",
+      "BENGUELA_LR_CFBBULKONLINERUNOFF",
+      "BENGUELA_LR_GLS",
+      "BENGUELA_LR_NBQ",
+      "VILAINE",
+    ],
+    "@realist": [
+      "BENGUELA_LR_BRY",
+      "BENGUELA_LR_BRY_PISCES",
+      "BENGUELA_LR_TIDES_BULK",
+      "BENGUELA_LR_BULK",
+      "BENGUELA_LR_BULKONLINE",
+      "BENGUELA_LR_CLIM",
+      "BENGUELA_LR_GLS",
+      "BENGUELA_LR_CFB",
+      "BENGUELA_LR_CFBBULK",
+      "BENGUELA_LR_CFBBULKONLINE",
+      "BENGUELA_LR_CFBBULKONLINERUNOFF",
+      "BENGUELA_LR_BSTRESS_FASTGLS",
+      "BENGUELA_LR_BSTRESS_FASTKPP",
+      "BENGUELA_LR_NBQ",
+      "VILAINE",
+    ],
+    "@nbq": ["GRAV_ADJ_NBQ", "IGW_NBQ"],
+    "@sediment_mustang": [
+      "DUNE_SEDIMENT",
+      "DUNE_MUSTANG",
+      "TIDAL_FLAT_MUSTANG",
+      "SANDBAR",
+      "RIP",
+    ],
+    "@other": ["KILPATRICK", "SEAGRASS", "SHOREFACE", "THACKER"],
+    "@complement": [
+      "CANYON",
+      "ESTUARY",
+      "INNERSHELF",
+      "INTERNAL",
+      "JET",
+      "KH_INST",
+      "SEAMOUNT",
+      "SHELFRONT",
+      "SWASH",
+      "TANK",
+      "TS_HADV_TEST",
+      "SINGLE_COLUMN_DIURNAL_CYCLE",
+      "SINGLE_COLUMN_FORCED_DBLEEK",
+      "SINGLE_COLUMN_FORCED_EKBBL",
+      "SINGLE_COLUMN_FORCED_NONROTBBL",
+      "SINGLE_COLUMN_FORCED_OSCNONROTBBL",
+      "SINGLE_COLUMN_KATO_PHILIPS",
+      "SINGLE_COLUMN_WILLIS_DEARDORFF",
+      "ACOUSTIC",
+      "SED_TOY_ROUSE",
+      "SED_TOY_CONSOLID",
+      "SED_TOY_RESUSP",
+      "SED_TOY_FLOC0D",
+      "SED_TOY_FLOC1D",
+      "RIP_GRANDPOPO",
+      "RIP_TOPO_2D",
+      //"DUNE_ANA_DUNE", // blow-up issue
+      "DUNE_DUNE3D",
+      "FLASH_RIP",
+      //"MOVING_BATHY", // repro-mpi issue
+    ],
+    "@complement_sequential_only": [
+      "SINGLE_COLUMN_DIURNAL_CYCLE",
+      "SINGLE_COLUMN_FORCED_DBLEEK",
+      "SINGLE_COLUMN_FORCED_EKBBL",
+      "SINGLE_COLUMN_FORCED_NONROTBBL",
+      "SINGLE_COLUMN_FORCED_OSCNONROTBBL",
+      "SINGLE_COLUMN_KATO_PHILIPS",
+      "SINGLE_COLUMN_WILLIS_DEARDORFF",
+      "SED_TOY_ROUSE",
+      "SED_TOY_CONSOLID",
+      "SED_TOY_RESUSP",
+      "SED_TOY_FLOC0D",
+      "SED_TOY_FLOC1D",
+    ],
+    "@vortex": ["VORTEX", "VORTEX_AGRIF_2WAY"],
+    "@agrif_realist": ["BENGUELA_LR_AGRIF_2WAY"],
+  },
+
+  ////////////////////////////// VARIANTS ////////////////////////////////////
+  "variants": {
+    // Look inside condif.d/variants/* to see what is imported here from dir.
+  },
+  ////////////////////////////// CASES ///////////////////////////////////////
+  "cases": {
+    // Look inside condif.d/cases/* to see what is imported here from dir.
+  },
+}

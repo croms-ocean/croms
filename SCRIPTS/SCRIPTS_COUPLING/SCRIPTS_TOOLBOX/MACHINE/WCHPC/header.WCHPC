@@ -1,0 +1,14 @@
+#!/bin/bash
+#PBS -l select=1:ncpus=24:mpiprocs=<nmpi>
+#PBS -P WCHPC
+#PBS -q smp
+#PBS -l walltime=<timedur>
+#PBS -N <exp> 
+cd $PBS_O_WORKDIR
+
+#===============================================================================
+
+source ./myenv_mypath.sh
+
+# < insert here variables definitions > !!! DO NOT REMOVE THIS LINE (used by submitjob) !!!
+

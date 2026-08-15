@@ -1,0 +1,98 @@
+{
+  // Default BASIN case
+  "BASIN": {
+    "title": "BASIN (60 x 50 x 10 : 3240)",
+    "case": "BASIN",
+    "plotphy": {
+      "plotphy_script": "./TEST_CASES/plot_basin.py",
+      "plotphy_script_input": "basin_his.nc",
+    },
+    "splitting": {
+      "1": "1x1",
+      "2": "1x2",
+      "4": "2x2",
+      "6": "1x6",
+      "8": "2x4",
+      "12": "2x6",
+      "16": "1x16",
+      "32": "1x32",
+      "64": "1x64",
+    },
+
+    "patches": {},
+    "check_outputs": ["basin_his.nc"],
+    "unsupported": ["restart"],
+  },
+  // BASIN a bit larger
+  "BASIN-LARGE": {
+    "title": "BASIN - LARGE - (200 x 200 x 50 : 100)",
+    "case": "BASIN",
+    "splitting": {
+      "1": "1x1",
+      "2": "1x2",
+      "4": "2x2",
+      "6": "1x6",
+      "8": "2x4",
+      "12": "2x6",
+      "16": "1x16",
+      "32": "1x32",
+      "64": "1x64",
+    },
+
+    "patches": {
+      // Change the size of the mesh
+      "param.h": {
+        "mode": "replace",
+        "after": "#if defined BASIN",
+        "what": "      parameter (LLm0=60,   MMm0=50,   N=10)",
+        "by": "      parameter (LLm0=200,  MMm0=200,  N=50)",
+        "descr": "Set mesh size to (200 x 200 x 50)",
+      },
+      // Change the dt
+      "TEST_CASES/croco.in.Basin": {
+        "mode": "replace",
+        "after": " time_stepping: NTIMES   dt[sec]  NDTFAST  NINFO",
+        "what": "                3240     9600     65      1",
+        "by": "                100      2400     65      1",
+        "descr": "Set stepping (steps=100, dt=2400, fast=65)",
+      },
+    },
+    "check_outputs": ["basin_his.nc"],
+  },
+  // BASIN a bit huger to stress GPU on gricad bigfoot
+  "BASIN-HUGE": {
+    "title": "BASIN - HUGE - (400 x 400 x 100 : 100)",
+    "case": "BASIN",
+    "splitting": {
+      "1": "1x1",
+      "2": "1x2",
+      "4": "2x2",
+      "6": "1x6",
+      "8": "2x4",
+      "12": "2x6",
+      "16": "1x16",
+      "32": "1x32",
+      "64": "1x64",
+    },
+
+    "patches": {
+      // Change the size of the mesh
+      "param.h": {
+        "mode": "replace",
+        "after": "#if defined BASIN",
+        "what": "      parameter (LLm0=60,   MMm0=50,   N=10)",
+        "by": "      parameter (LLm0=400,  MMm0=400,  N=100)",
+        "descr": "Set mesh size to (400 x 400 x 100)",
+      },
+      // CHange the dt
+      "TEST_CASES/croco.in.Basin": {
+        "mode": "replace",
+        "after": " time_stepping: NTIMES   dt[sec]  NDTFAST  NINFO",
+        "what": "                3240     9600     65      1",
+        "by": "                100      1200     65      1",
+        "descr": "Set stepping (steps=100, dt=1200, fast=65)",
+      },
+    },
+    "check_outputs": ["basin_his.nc"],
+  },
+}

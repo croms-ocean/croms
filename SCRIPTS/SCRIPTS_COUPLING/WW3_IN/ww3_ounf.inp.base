@@ -1,0 +1,49 @@
+$ -------------------------------------------------------------------- $
+$ WAVEWATCH III Grid output post-processing                            $
+$--------------------------------------------------------------------- $
+$
+$ 1st output time (yyyymmdd hhmmss), increment (s), nb of outputs   -- $
+$
+  <yr1><mo1><dy1> <hr1>0000  <wav_int> 1000000
+$
+$ Fields requested --------------------------------------------------- $
+$  Defined as namelist:                                             -- $
+$      one line set to N                                            -- $
+$      next line contains parameter name                            -- $
+$
+  N
+  DPT WLV CUR WND HS LM T02 T0M1 T01 FP DP DIR SPR CHA TAW TWA TWO BHD FOC USS UBR
+$ DPT WLV CUR WND AST ICE IBG D50 IC1 IC5
+$ HS LM T02 T0M1 T01 FP DIR DP SPR HIG MXE MXES MXH MXHC SDMH SDMHC
+$ EF TH1M STH1M TH2M STH2M WN
+$ PHS PTP PLP PSP PWS TWS PNR
+$ UST CHA CGE FAW TAW TWA WCC WCF WCH WCM
+$ SXY TWO BHD FOC TUS USS P2S USF P2L TWI FIC
+$ ABR UBR BED FBB TBB
+$ MSS M2S WL02 AXT AYT AXY
+$
+$--------------------------------------------------------------------- $
+$ netCDF version, variable type [2=SHORT, 3=it depends , 4=REAL]    -- $
+$ swell partitions [0 1 2 3 4 5]                                    -- $   
+$ variables in same file [T] or not [F]                             -- $
+$
+  4 4
+  0 1 2
+  T
+$
+$ -------------------------------------------------------------------- $
+$ File prefix                                                       -- $
+$ Nb of characters in date [4=yearly, 6=monthly, 8=daily, 10=hourly] - $
+$ IX and IY ranges [regular:IX NX IY NY, unstructured:IP NP 1 1]     - $
+$
+  ww3.         
+  6
+  1 10000 1 10000 
+$
+$ For each field and time a new file is generated with the file name
+$ ww3.date_xxx.nc , where date is a conventional time indicator with S3
+$ characters, and xxx is a field identifier.
+$
+$ -------------------------------------------------------------------- $
+$ End of input file                                                    $
+$ -------------------------------------------------------------------- $

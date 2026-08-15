@@ -1,0 +1,29 @@
+
+#-------------
+# WRF
+#-------------
+export NETCDF_classic=1
+export NETCDF4=1
+export WRFIO_NCD_LARGE_FILE_SUPPORT=1
+
+export WRFDIR=/home/apps/chpc/earth/WRF-4.2.1_cc_intel2020
+export DIR=$WRFDIR/LIBRARIES
+export PKG_CONFIG_PATH=$DIR/grib2/lib/pkgconfig:$DIR/netcdf/lib/pkgconfig
+export PATH=/apps/chpc/earth/NetCDF-c461-f444-intel2020/bin:$DIR/grib2/bin:$PATH
+export LD_LIBRARY_PATH=$DIR/grib2/lib:/apps/chpc/earth/NetCDF-c461-f444-intel2020/lib:$LD_LIBRARY_PATH
+export NETCDF=/apps/chpc/earth/NetCDF-c461-f444-intel2020
+export PNETCDF=/apps/chpc/earth/NetCDF-c461-f444-intel2020
+export HDF5=/apps/chpc/earth/NetCDF-c461-f444-intel2020
+export LDFLAGS="-L$DIR/grib2/lib"
+export CPPFLAGS=-I$DIR/grib2/include
+
+export FCFLAGS="-m64 -I$DIR/netcdf/include -I$DIR/grib2/include"
+export FFLAGS=$FCFLAGS
+export CFLAGS=$FCFLAGS
+
+# #-------------
+# # for WPS  
+# #-------------
+export JASPERLIB=$DIR/grib2/lib
+export JASPERINC=$DIR/grib2/include
+

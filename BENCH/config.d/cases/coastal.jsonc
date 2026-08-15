@@ -1,0 +1,18 @@
+{
+  // VILAINE case
+  "VILAINE": {
+    "title": "VILAINE",
+    "case": "COASTAL",
+    "croco_files_path": "COASTAL_VILAINE_BCK",
+    "splitting": { "1": "1x1", "2": "1x2", "4": "2x2", "8": "2x4" },
+    "patches": {},
+    "check_outputs": ["croco_his.nc"],
+    "unsupported": ["openmp", "restart"],
+    // no restartability (even without MUSTANG) due probably to WET_DRY key
+    // Note :: for restart with MUSTANG, we will have to change paraMUSTANG.txt
+    // file or to change MUSTANG behavior to take croco restart file in case of
+    // EXACT_RESTART
+    // >> prefer last solution, but for now restart option with bench is not
+    // available with MUSTANG
+  },
+}

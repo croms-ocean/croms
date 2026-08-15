@@ -1,0 +1,11 @@
+{
+  "SEAGRASS": {
+    "title": "SEAGRASS",
+    "case": "SEAGRASS",
+    "splitting": { "1": "1x1", "2": "2x1" },
+    "cppkeys": {},
+    "patches": {},
+    "check_outputs": ["seagrass_his.nc"],
+    "unsupported": ["restart", "openmp"],
+  },
+}

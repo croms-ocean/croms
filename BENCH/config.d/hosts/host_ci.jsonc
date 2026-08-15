@@ -1,0 +1,36 @@
+{
+  // for gitlab-ci (docker image)
+  "host_ci": {
+    "ressources": {
+      "cpu": 4,
+      "gpu": 1,
+    },
+    "tuning": {
+      "gnu": {
+        "extra": "-march=native",
+        "standard": "-O2 -mcmodel=medium -fdefault-real-8 -fdefault-double-8 -std=legacy",
+        "debug": "-O0 -g -fdefault-real-8 -fdefault-double-8 -std=legacy -fbacktrace -ffpe-trap=invalid,zero,overflow -fbounds-check -finit-real=nan -finit-integer=8888",
+        "mpi_options": "-use-hwthread-cpus --allow-run-as-root",
+      },
+      "intel": {
+        "extra": "",
+        "standard": "-O2 -mcmodel=medium -fno-alias -i4 -r8 -fp-model precise",
+        "debug": "-O0 -g -i4 -r8 -traceback -check bounds -CA -CB -CS -ftrapuv -fpe1",
+        "mpi_options": "",
+      },
+      "nvfortran": {
+        "extra": "-tp=native",
+        "standard": "-O2 -fast -g -r8 -i4 -mcmodel=medium",
+        "debug": "-O0 -fast -g -r8 -i4 -mcmodel=medium",
+        "mpi_options": "",
+      },
+      "environ": {
+        "OMP_PROC_BIND": "spread",
+      },
+      "hwloc_bind": {
+        "openmp": "",
+        "mpirun": "",
+      },
+    },
+  },
+}

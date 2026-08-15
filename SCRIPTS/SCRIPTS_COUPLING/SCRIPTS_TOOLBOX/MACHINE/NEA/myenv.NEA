@@ -1,0 +1,30 @@
+#!/bin/bash
+module purge
+
+module load mpi/intel/2022.2.1/openmpi/1.10
+module load openmpi-1.10.7-intel-2022.2.1/netcdf-c/4.9.2-sotdfgn
+module load openmpi-1.10.7-intel-2022.2.1/netcdf-fortran/4.6.1-q3bbbqt
+
+# -- for NETCDF
+# --> 
+export NETCDF=$( nf-config --prefix )
+export NETCDFC=$( nc-config --prefix )
+export NETCDF_CONFIG=$NETCDF/bin/nf-config
+export NETCDFC_CONFIG=$NETCDF/bin/nc-config
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${NETCDF}/lib:${NETCDFC}/lib
+
+# -- Option for job launching
+export MPI_LAUNCH=mpirun
+export MPI_ext="--app"
+export ncomod='openmpi-1.10.7-intel-2022.2.1/nco/5.3.4-c6judux'
+
+#----------------------------------------------------------------
+# Environment variables related to compilers
+#----------------------------------------------------------------
+export CC=icc
+export FC=ifort
+export F77=ifort
+export F90=ifort
+export MPIF90=mpifort
+export MPICC=mpicc
+

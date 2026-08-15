@@ -1,0 +1,11 @@
+{
+  // JET
+  "JET": {
+    "title": "JET - (30 x 50 x 30 : 1200)",
+    "case": "JET",
+    "splitting": { "1": "1x1", "2": "1x2", "4": "2x2" },
+    "patches": {},
+    "check_outputs": ["jet_his.nc"],
+    "unsupported": ["restart", "openmp"],
+  },
+}

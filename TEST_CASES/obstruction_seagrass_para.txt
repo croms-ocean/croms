@@ -1,0 +1,75 @@
+:=============================================================================
+:         NAMELIST FOR OBSTRUCTIONS AND MANAGEMENT PARAMETERS
+:=============================================================================
+: obst_main     : Main OBSTRUCTIONS parameters
+: obst_input    : OBSTRUCTIONS input parameters
+: obst_output   : OBSTRUCTIONS output parameters
+:
+:------------------------------------------------------------------------------
+: obst_main     : Main OBSTRUCTIONS parameters 
+:------------------------------------------------------------------------------
+: obst_nbvar              : Number of OBSTRUCTIONS variables
+: obst_c_paramhuv         : coefficient for unconfined conditions 
+:                           (height * osbt_paramhuv)
+:                           default value = 10. 
+:------------------------------------------------------------------------------
+&obst_main
+  obst_nbvar              = 1
+  obst_c_paramhuv         = 10. /
+:
+:------------------------------------------------------------------------------
+: obst_input : OBSTRUCTIONS input parameters
+:------------------------------------------------------------------------------
+: obst_fn_position        : File name for input OBSTRUCTIONS variables positions
+: obst_fn_var             : list of parameter file for each OBSTRUCTION variable
+:                            ex for obst_nbvar = 2 : 'file1.txt','file2.txt'
+:------------------------------------------------------------------------------
+&obst_input
+  obst_fn_position        = 'TEST_CASES/obstruction_seagrass_position.nc'
+  obst_fn_var             = 'TEST_CASES/obstruction_seagrass_var.txt' /
+:
+:------------------------------------------------------------------------------
+: obst_output  : OBSTRUCTIONS output parameters
+:------------------------------------------------------------------------------
+: l_obstout_pos           : write obstructions position within output file (iv,x,y)
+: l_obstout_height_f      : write obstructions forcing height within output file (iv,x,y)
+: l_obstout_height_e      : write obstructions effective height within output file (iv,x,y)
+: l_obstout_dens_f        : write obstructions forcing density within output file (iv,x,y)
+: l_obstout_dens_e        : write obstructions effective density within output file (iv,z,x,y,)
+: l_obstout_width_f       : write obstructions forcing width (iv,x,y)
+: l_obstout_width_e       : write obstructions effective width (iv,z,x,y)
+: l_obstout_thick_f       : write obstructions forcing thick (iv,x,y)
+: l_obstout_thick_e       : write obstructions effective thick (iv,z,x,y)
+: l_obstout_theta         : write obstructions bending angle (iv,z,x,y)
+: l_obstout_frac_xy       : write obstructions fragmentation correction factor (iv,x,y)
+: l_obstout_frac_z        : write obstructions fraction of sigma layer occupied (iv,z,x,y)
+: l_obstout_fuzvz         : write obstructions resistance force 3D (z,x,y)
+: l_obstout_a2d           : write 2D obstructions horizontal area (iv+3,x,y)
+: l_obstout_a3d           : write 3D obstructions horizontal area (iv+3,z,x,y)
+: l_obstout_s2d           : write 2D obstructions vertical area (iv+3,x,y)
+: l_obstout_s3d           : write 3D obstructions vertical area (iv+3,z,x,y)
+: l_obstout_drag          : write obstructions drag coefficient (iv,z,x,y)
+: l_obstout_tau           : write obstructions turbulent stress (z,x,y)
+
+:------------------------------------------------------------------------------
+&obst_output
+  l_obstout_pos           = .TRUE.
+  l_obstout_height_f      = .FALSE.
+  l_obstout_height_e      = .TRUE.
+  l_obstout_dens_f        = .FALSE.
+  l_obstout_dens_e        = .TRUE.
+  l_obstout_width_f       = .FALSE.
+  l_obstout_width_e       = .TRUE.
+  l_obstout_thick_f       = .FALSE.
+  l_obstout_thick_e       = .TRUE.
+  l_obstout_theta         = .TRUE.
+  l_obstout_frac_xy       = .FALSE.
+  l_obstout_frac_z        = .FALSE.
+  l_obstout_fuzvz         = .FALSE.
+  l_obstout_a2d           = .FALSE.
+  l_obstout_a3d           = .FALSE.
+  l_obstout_s2d           = .FALSE.
+  l_obstout_s3d           = .FALSE.
+  l_obstout_drag          = .FALSE.
+  l_obstout_tau           = .FALSE. /
+

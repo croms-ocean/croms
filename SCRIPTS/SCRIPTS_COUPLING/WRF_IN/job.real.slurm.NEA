@@ -1,0 +1,16 @@
+#!/bin/bash
+#SBATCH --job-name=Run_real
+#SBATCH --partition=ivy
+#SBATCH --ntasks=1
+#SBATCH --time=02:00:00              # temps d execution maximum demande (HH:MM:SS)
+#SBATCH --output=%x.%j.out
+
+cd ${SLURM_SUBMIT_DIR}
+
+#===============================================================================
+
+umask 022
+set -u
+
+./run_real.bash configure.namelist.real 1
+

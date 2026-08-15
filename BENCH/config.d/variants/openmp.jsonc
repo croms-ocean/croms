@@ -1,0 +1,17 @@
+{
+  // openmp
+  "openmp-{threads}": {
+    "configure": "--with-optim=openmp --with-splitting={case.splitting.{threads}} ",
+    "tuning_familly": "gnu",
+    "environ": {
+      "OMP_NUM_THREADS": "{threads}",
+    },
+    "command_prefix": "{tuning.hwloc_bind.openmp}",
+    "unpack": {
+      "threads": [2, 4, 6, 8, 16, 32, 64],
+    },
+    "requires": {
+      "cpu": "{threads}",
+    },
+  },
+}

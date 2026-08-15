@@ -1,0 +1,15 @@
+The namcouple.base.* proposed in this directory are made:
+
+* either for WRFV4.2.1 in the version available at: https://github.com/wrf-croco/WRF
+* either for WRFV4.6 in the version available at: https://github.com/massonseb/WRF/tree/GMD_wrf_coupling
+
+The names of coupled variables for OASIS between these 2 versions have changed. 
+Depending on the WRF version you are using you should link the corresponding namcouple* in the current directory:
+* ln -s for_WRFV4.2.1CROCO/* .
+or
+* ln -s for_WRFV4.6GMD/* .
+
+Note that if you want to use the TOY model on behalf of WRF you should check the variable names in: 
+SCRIPTS_TOOLBOX/OASIS_SCRIPTS/create_oasis_toy_files.sh
+
+They are currently set for WRFV4.6, but you can modify them to be coherent with WRFV4.2.1

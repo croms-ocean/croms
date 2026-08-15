@@ -1,0 +1,22 @@
+Note on WW3 version used with the CROCO coupling tools
+------------------------------------------------------
+
+Currently coupling tools provided in croco are designed to work with the WW3 6.07.1 release plus some additional changes in a few coupled routines in WW3. 
+WW3 6.07.1 release is distributed by https://github.com/NOAA-EMC/WW3.git. 
+
+The modified routines are provided in the ``croco/SCRIPTS/SCRIPTS_COUPLING/WW3_IN/modified_ftn`` directory:
+- w3iogomd.ftn  
+- w3oacpmd.ftn  
+- w3odatmd.ftn  
+- w3ogcmmd.ftn
+
+These modifications allow to exchange the mean wave direction (THM in WW3) instead of its cos and sin, as it was done before. 
+This solves an issue with rotated grids in CROCO, and is now the default variable to be exchanged when coupling CROCO and WW3. 
+
+More recent versions of WW3 contains these modifications, but as these more recent versions are currently not tagged as "releases", we prefer to stick to the latest official release and just add the few modified routines.
+
+The procedure to follow is thus:
+- download the WW3 6.07.1 release (from the github repo. or using : git clone --branch 6.07.1 --single-branch https://github.com/NOAA-EMC/WW3.git)
+- copy the 4 modified functions from croco/SCRIPTS/SCRIPTS_COUPLING/WW3_IN/modified_ftn to WW3/model/ftn directory
+- then compile WW3 in coupled mode 
+

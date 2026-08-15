@@ -1,0 +1,7 @@
+#-------------
+# WW3
+#-------------
+export NETCDF=/apps/chpc/earth/NetCDF-c461-f444-intel2020
+export NETCDF_CONFIG=${NETCDF}/bin/nf-config
+export WWATCH3_NETCDF=NC4
+

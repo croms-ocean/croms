@@ -1,0 +1,14 @@
+{
+  // OVERFLOW
+  "OVERFLOW": {
+    "title": "OVERFLOW - (4 x 128 x 10 : 2160)",
+    "case": "OVERFLOW",
+    "plotphy": {
+      "plotphy_script": "./TEST_CASES/plot_overflow.py",
+      "plotphy_script_input": "over_his.nc",
+    },
+    "splitting": { "1": "1x1", "2": "1x2", "4": "1x4" },
+    "patches": {},
+    "check_outputs": ["over_his.nc"],
+  },
+}

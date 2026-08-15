@@ -1,0 +1,31 @@
+{
+  // RIVER
+  "RIVER": {
+    "title": "RIVER - (40 x 80 x 20 : 800)",
+    "case": "RIVER",
+    "plotphy": {
+      "plotphy_script": "./TEST_CASES/plot_river.py",
+      "plotphy_script_input": "river_his.nc",
+    },
+    "splitting": { "1": "1x1", "2": "1x2", "4": "2x2" },
+    "patches": {},
+    "check_outputs": ["river_his.nc"],
+    "unsupported": ["restart"],
+  },
+  // PSOURCE_MASS
+  "RIVER_PSOURCE_MASS": {
+    "title": "RIVER_PSOURCE_MASS - (40 x 80 x 20 : 800)",
+    "case": "RIVER",
+    "plotphy": {
+      "plotphy_script": "./TEST_CASES/plot_river.py",
+      "plotphy_script_input": "river_his.nc",
+    },
+    "splitting": { "1": "1x1", "2": "1x2", "4": "2x2" },
+    "cppkeys": {
+      "PSOURCE_MASS": true,
+    },
+    "patches": {},
+    "check_outputs": ["river_his.nc"],
+    "unsupported": ["restart", "openmp"],
+  },
+}

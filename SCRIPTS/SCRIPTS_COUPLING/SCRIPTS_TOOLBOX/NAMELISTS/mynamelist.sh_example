@@ -1,0 +1,349 @@
+############################# from mynamelist.sh ###############################
+
+################################################################################
+############################ USER CHANGES ######################################
+################################################################################
+
+# Run type (o/a/w, w.Afrc, oa, 2o1a, owa, owa.full...)
+#  - Will select the models to use reading letters o/w/a/toywav/toyoce/toyatm 
+#  - Will select the executables, and some options (see in the following sections)
+#  - In coupled mode corresponds to the suffix of the OASIS_IN/namcouple.base.$RUNtype to use
+export RUNtype=owa
+export MOD=`echo $RUNtype | cut -d . -f 1`
+
+#  Name of the experiment you are about to launch (max 30. CHAR)
+export CEXPER=BENGUELA_${RUNtype}
+
+#-------------------------------------------------------------------------------
+# RUN_DIR
+#-------------------------------------------------------------------------------
+
+export EXEDIR_ROOT="$CWORK/rundir/${CEXPER}_execute"
+export OUTPUTDIR_ROOT="$CWORK/rundir/${CEXPER}_outputs"
+export RESTDIR_ROOT="$CWORK/rundir/${CEXPER}_restarts"
+
+export  JOBDIR_ROOT=${CHOME}/jobs_${CEXPER}
+
+#-------------------------------------------------------------------------------
+# CPL
+#-------------------------------------------------------------------------------
+
+# Namelist
+#---------
+# Note: namelist example files are provided in OASIS_IN/
+# if you want to use a pre-built weight file for grid interpolations, point to 
+# e.g. namcouple.base.oa.smtho2a 
+export namcouplename=namcouple.base.${RUNtype} 
+
+# Coupling frequency
+#-------------------
+export CPL_FREQ=3600
+
+# Restart files for OASIS
+#------------------------
+# If TRUE: create OASIS restart files from pre-existing atm/oce/wav outputs.
+# If FALSE: create OASIS restart files from calm conditions (need to read at least the grid for each model)
+export CPL_restart="FALSE"
+export oce_rst_file="${OCE_FILES_DIR}/croco_grd.nc" 
+export oce_rst_timeind=-1 # time index (-1 is last) in the file to extract as restart
+export atm_rst_file="${ATM_FILES_DIR}/wrfinput_dXX_2005_01_01_00" # the domain dXX will be automatically replaced
+export atm_rst_timeind=-1 # time index (-1 is last) in the file to extract as restart
+export wav_rst_file="${CWORK}/TOY_FILES/ww3.200501.nc" 
+export wav_rst_timeind=-1 # time index (-1 is last) in the file to extract as restart
+
+# Weight files for grid interpolations
+#-------------------------------------
+# If FALSE files for grid interpolations will automatically be generated during the run
+# If TRUE use pre-built weight file for grid interpolations
+export WEIGHT_FLAG="FALSE" 
+# If TRUE : filenames
+# They should be placed in OASIS_FILES
+# Note: for the moment only works with 1-atm and 1-oce domain
+export weight_o2a=""
+export weight_a2o=""
+export weight_o2w=""
+export weight_w2o=""
+export weight_w2a=""
+export weight_a2w=""
+
+#-------------------------------------------------------------------------------
+# OCE
+#-------------------------------------------------------------------------------
+
+# Where to find or put the croco execuatble
+export OCE_EXE_DIR=$PWD #${CHOME}/CROCO_IN
+
+# Online Compilation
+#-------------------
+#!!!!!!! IMPORTANT NOTE !!!!!!!
+# If activated, creates croco executable depending on this namelist. 
+#   - In param.h it modifies the grid size, the number of procs in x and y direction with those given in myjob.sh
+#   - In cppdefs.h it modifies the following options with informations given below
+#       MPI, OA_COUPLING, OW_COUPLING, MRL_WCI, 
+#       XIOS, LOGFILE, MPI_NOLAND,
+#       AGRIF, AGRIF_2WAY, 
+#       BULK_FLUX, ONLINE, AROME, ARPEGE, ERA_ECMWF
+#       FRC_BRY, CLIMATOLOGY
+#       TIDES, PSOURCE, PSOURCE_NCFILE, PSOURCE_NCFILE_TS
+# Other changes of parameterizations, numerical schemes, etc should be made "by hand" in CROCO_IN/cppdefs.h.base
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+export ONLINE_COMP=0
+
+# Time steps
+#-----------
+export DT_OCE=3600
+export NDTFAST=60
+
+# MPI_NOLAND
+#-----------
+export MPI_NOLAND="FALSE"
+
+# Domains
+#--------
+if [[ $RUNtype =~ .*2o.* ]] ; then
+# Simulation with 2 ocean domains
+    export AGRIFZ=1
+    export AGRIF_2WAY="TRUE"
+else
+# Simulation with 1 ocean domain
+    export AGRIFZ=0
+    export AGRIF_2WAY="FALSE"
+fi
+
+# Wave coupling
+#--------------
+# OW_COUPLING_FULL
+#   - TRUE: uses all terms from the wave model (stokes, tke flux, bernouilli head, orbital velocities)
+#   - FALSE: uses their monochromatic approximation
+if [[ $RUNtype =~ .*full.* ]] ; then
+    export OW_COUPLING_FULL="TRUE"
+else
+    export OW_COUPLING_FULL="FALSE"
+fi
+# WAVE_SMFLUX
+#   - TRUE: uses stress from the wave model 
+#   - FALSE: uses stress from the bulk formulation
+#   Not used when cpl with atm as the stress comes from the atm model. For owa coupled cases both atm and wav stresses are used. 
+if [[ $RUNtype =~ .*two.* ]] ; then
+    export WAVE_SMFLUX="TRUE"
+else
+    export WAVE_SMFLUX="FALSE"
+fi
+
+# Forcings
+#---------
+export ini_ext='ini_SODA' # ini extension file (ini_SODA,...)
+export bdy_ext='bry_SODA' # bry extension file (clm_SODA,bry_SODA,...)
+
+# flag for surface forcing should be true except in the case of atm coupling
+if [[ $MOD =~ .*a.* ]] ; then
+    export surfrc_flag="FALSE"
+else
+    export surfrc_flag="TRUE"
+fi
+export interponline=0 # switch (1=on, 0=off) for online surface interpolation. Only works with MONTHLY input files!
+export frc_ext='blk_ERA5' # surface forcing extension(blk_ERA5, frc_ERA5,...). If interponline=1 precise the type (ERA_ECMWF or AROME,  [CFSR by default], names as cppkey name in croco)
+
+export tide_flag="FALSE" # the forcing extension must be blk_??? otherwise tide forcing overwrites it 
+export river_flag="FALSE"
+
+# Output settings
+#----------------
+#!!! WARNING: when XIOS is activated the following values (for the model) are not taken into account
+export oce_his_sec=86400     # history output interval (in number of second) 
+export oce_avg_sec=86400     # average output interval (in number of second) 
+
+#-------------------------------------------------------------------------------
+# ATM
+#-------------------------------------------------------------------------------
+
+# Where to find the atm exectuable
+if [[ $RUNtype =~ .*a.* && ( $RUNtype =~ .*o.* || $RUNtype =~ .*w.* ) ]] ; then
+    export ATM_EXE_DIR=${ATM}/exe_coupled
+else
+    export ATM_EXE_DIR=${ATM}/exe_uncoupled
+fi
+
+# Namelist
+#---------
+#!!!!!!! IMPORTANT NOTE !!!!!!!
+# Changes of parameterizations, numerical schemes, etc in atmnamelist
+# should be made "by hand" in the WRF_IN/namelist.input.base.complete file
+# Only settings into <...> in WRF_IN/namelist.input.base.complete are automatically
+# filled in by the present mynamelist settings
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+export atmnamelist=namelist.input.base.complete
+
+# Time steps
+#-----------
+export DT_ATM=150
+
+# Boundaries 
+#-----------
+export interval_seconds=21600 # interval ( in sec ) of the lateral input
+export auxinput4_interval=360 # interval ( in min ) of bottom input
+export nbmetsoil=4
+export nbmetlevel=38
+
+# Physics
+#--------
+ # Cd formulation (default = 0, wave cpl needs = 5)
+if [[ $RUNtype =~ .*aw.* || $RUNtype =~ .*owa.* ]] ; then
+    export isftcflx=5
+else
+    export isftcflx=1
+fi
+
+# Domains
+#--------
+export NB_dom=1 # Number of coupled domains
+export wrfcpldom='d01' # which WRF domain to couple
+export nestfeedback="TRUE" # 1 way (FALSE) or 2 Way (TRUE) nesting
+export onlinecplmask="TRUE" # Erase existing CPLMASK and build default mask (depending on the nb of atm and oce domains)
+
+# Moving nest 
+#------------
+export ATM_CASE="DEFAULT"  # no moving nest: DEFAULT or with: MOVING_NEST
+# if ATM_CASE=DEFAULT, the following is not used
+export num_mv_nest=1 # number of moving nests
+# if several nest, the following variables need to have the format "1st_nest 2nd_nest"
+export ref_coef="3" # refinement coef for nest
+export ew_size="283" # nest size in east-west dim ([multiple of ref_coef] + 1)
+export ns_size="295" # nest size in north-south dim ([multiple of ref_coef] + 1)
+export i_prt_strt="580" # where nest is starting in parent's grid x-dim 
+export j_prt_strt="59" # where nest is starting in parent's grid y-dim
+# Tracking parameters
+export vortex_interval=5 # When to update vortex position
+export max_vortex_speed=40 # Used to compute the search radius for the new vortex center position
+export corral_dist=8 # The closest distance between child and parend boundary (in parent grid cell)
+export track_level=50000 # The pressure level (in Pa) where the vortex is tracked
+export time_to_move=0 # The time (in minutes) until the nest is moved (at the beginning)
+
+# Nudging (assimilation) options
+#-------------------------------
+export switch_fdda=0 # To activate fdda nudging
+export nudgedom="1" # select which kind of nudging you want (1=grid-nudging, 2=spectral nudging) for each domain. Example for spectral nudging over parent only "2 0"
+export nudge_coef="0.0003" # nudge coef. Need to be the same size than nudge
+export nudge_interval_m="360" # time interval (in min) between analysis times 
+export nudge_end_h="144" # time (in hours) to stop nudging after start of forecast
+
+# Output settings
+#----------------
+#!!! WARNING: when XIOS is activated the following values (for the model) are not taken into account
+export atm_his="180 180 60"               # output interval (minutes) for each domain
+export atm_his_frames=1000 # $((31*24))   # nb of outputs per file
+export atm_diag_int_m=$atm_his            # diag output interval (m)
+export atm_diag_frames=1000               # nb of diag outputs per file
+# file for specifying different than default output variables: OPTIONAL, leave empty if not used
+export atm_iofields='myoutfields.txt'
+
+#-------------------------------------------------------------------------------
+# WAV
+#-------------------------------------------------------------------------------
+
+# Where to find the wav executable
+if [[ $RUNtype =~ .*owa.* ]] ; then
+    export WAV_EXE_DIR=${WAV}/exe_owa
+elif [[ $RUNtype =~ .*ow.* ]] ; then
+    export WAV_EXE_DIR=${WAV}/exe_ow
+elif [[ $RUNtype =~ .*aw.* ]] ; then
+    export WAV_EXE_DIR=${WAV}/exe_aw
+else
+    export WAV_EXE_DIR=${WAV}/exe_frc
+fi
+
+# Namelist
+#---------
+# Chosing the ww3_shel.inp.base.SHELL_EXT (see options in WW3_IN)
+if [[ $RUNtype =~ .*toy.* ]] ; then
+    export SHELL_EXT=$MOD
+else
+    export SHELL_EXT=$RUNtype
+fi
+
+# Time steps
+#-----------
+export DT_WAV=3600     # TMAX = 3*TCFL
+export DT_WW_PRO=1200  # TCFL = 0.8 x dx/(g/fmin4pi) with fmin=0.0373 => 3-4 % of dx
+export DT_WW_REF=1800  # TMAX / 2
+export DT_WW_SRC=10    # TSRC = usually 10s  (could be between 5s and 60s)
+
+# Grid size
+#----------
+export wavnx=41 ; export wavny=42
+
+# Parameter
+#---------- 
+export hmin=75; # e.g. minimum water depth in CROCO (will be used to delimit coastline in WW3)
+
+# Forcing files
+#--------------
+# forcin: forcing file(s) PREFIX list (input file are supposed to be in the form: PREFIX_Y????M??.nc)
+# forcww3: name of ww3_prnc.inp extension, e.g current or wind/era5, see in WW3_IN directory
+if [[ $RUNtype =~ .*owa.* ]]; then
+    export forcin=()
+    export forcww3=()
+elif [[ $RUNtype =~ .*Afrc.* || $RUNtype =~ .*ow.* ]] ; then
+    export forcin=(ERA5_wind)
+    export forcww3=(wind.era5)
+elif [[ $RUNtype =~ .*Ofrc.* ]] ; then
+    export forcin=(CROCO_current CROCO_level)
+    export forcww3=(current level)
+elif [[ $RUNtype =~ .*frc.* ]] ; then
+    export forcin=(ERA5_wind CROCO_current CROCO_level)
+    export forcww3=(wind.era5 current level)
+fi
+
+# Boundary files
+#---------------
+# prefix for boundary files (leave empty is none), there are supposed to be in WAV_FILES_DIR
+export bouncin= 
+
+# Output settings
+#----------------
+export wav_int=21600  # output interval (s)
+export wav_pnt=0  # point output interval. Put 0 if no point output
+export point_output_list=${WAV_FILES_DIR}/my_point_output_test.txt # file where to find list of point (format: lon lat name) to output spectrum
+export wav_trck=0     # track output interval. Put 0 if no track output  
+export flagout="TRUE" # Keep (TRUE) or not (FALSE) the ww3 output binary files (e.g. out_grd.ww3)
+
+#-------------------------------------------------------------------------------
+# TOY
+#-------------------------------------------------------------------------------
+
+# Where to find the toy executable(s)
+export TOY_EXE_DIR=${CHOME}/TOY_IN
+
+# Choose for which model you use the toy 
+# If several separate with spaces
+# options are: oce atm wav
+#---------------------------------------
+export toytype=("wav" "atm") 
+
+# Forcing files that will be read by the toy
+#-------------------------------------------
+export toyfile=("$CWORK/TOY_FILES/ww3.200501.nc" \
+                "$CWORK/TOY_FILES/wrfout_d01_2005-01-01_00:00:00")
+export toytimerange=('2,10' \
+                     '2,10')
+
+#-------------------------------------------------------------------------------
+# XIOS
+#-------------------------------------------------------------------------------
+
+export USE_XIOS_ATM=0
+export USE_XIOS_OCE=0
+
+# Where to find the XIOS executable
+export XIOS_EXE_DIR=${XIOS}/bin
+
+# Process xml online
+#-------------------
+export ONLINE_XML="FALSE" 
+
+# Names of xml files (defined in file_def_*)
+#-------------------------------------------
+export ATM_XIOS_NAME="wrfout wrf3d_1D wrf3d_1H" 
+export OCE_OUTPUT_PREFIX="croco"
+export OCE_XIOS_NAME="${OCE_OUTPUT_PREFIX}_3h_inst ${OCE_OUTPUT_PREFIX}_1h_avg_3d ${OCE_OUTPUT_PREFIX}_1h_inst_surf ${OCE_OUTPUT_PREFIX}_5d_aver" 
+

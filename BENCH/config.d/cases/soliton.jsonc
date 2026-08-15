@@ -1,0 +1,67 @@
+{
+  // Default SOLITON case
+  "SOLITON": {
+    "title": "SOLITON (96 x 32 x 10 : 1200)",
+    "case": "SOLITON",
+    "plotphy": {
+      "plotphy_script": "./TEST_CASES/plot_soliton.py",
+      "plotphy_script_input": "soliton_his.nc",
+    },
+    "splitting": { "1": "1x1", "2": "2x1", "4": "2x2" },
+    "patches": {},
+    "check_outputs": ["soliton_his.nc", "soliton_avg.nc"],
+    "unsupported": ["openacc-native", "openacc-psyclone"],
+  },
+  // A larger variant
+  "SOLITON-LARGE": {
+    "title": "SOLITON (960 x 320 x 10 : 1200)",
+    "case": "SOLITON",
+    "splitting": {
+      "1": "1x1",
+      "2": "1x2",
+      "4": "2x2",
+      "6": "1x6",
+      "8": "2x4",
+      "12": "2x6",
+      "16": "1x16",
+      "32": "1x32",
+      "64": "1x64",
+    },
+    "patches": {
+      // Change the size of the mesh
+      "param.h": {
+        "mode": "replace",
+        "after": "#elif defined SOLITON",
+        "what": "      parameter (LLm0=96,   MMm0=32,   N=10)",
+        "by": "      parameter (LLm0=960,  MMm0=320,  N=10)",
+        "descr": "Set mesh size to (960 x 320 x 10)",
+      },
+      // CHange the dt
+      "TEST_CASES/croco.in.Soliton": [
+        {
+          "mode": "replace",
+          "after": "time_stepping: NTIMES   dt[sec]  NDTFAST  NINFO",
+          "what": "               1200     0.1      1        5",
+          "by": "               1200     0.01     1        5",
+          "descr": "Set stepping (steps=1200, dt=0.01, fast=1)",
+        },
+        {
+          "mode": "replace",
+          "after": "history: LDEFHIS, NWRT, NRPFHIS / filename ",
+          "what": "            T      80      0 ",
+          "by": "            T    1200      0",
+          "descr": "Set History steps (steps=1200)",
+        },
+        {
+          "mode": "replace",
+          "after": "averages: NTSAVG, NAVG, NRPFAVG / filename",
+          "what": "            1      80      0",
+          "by": "            1      1200    0",
+          "descr": "Set Average steps (steps=1200)",
+        },
+      ],
+    },
+    "check_outputs": ["soliton_his.nc", "soliton_avg.nc"],
+    "unsupported": ["openacc-native", "openacc-psyclone"],
+  },
+}

@@ -1,0 +1,14 @@
+{
+  // CANYON
+  "CANYON": {
+    "title": "CANYON - (65 x 48 x 16 : 240)",
+    "case": "CANYON",
+    "plotphy": {
+      "plotphy_script": "./TEST_CASES/plot_canyon.py",
+      "plotphy_script_input": "canyon_his.nc",
+    },
+    "splitting": { "1": "1x1", "2": "1x2", "4": "2x2" },
+    "patches": {},
+    "check_outputs": ["canyon_his.nc"],
+  },
+}

@@ -1,0 +1,62 @@
+!
+! Keyword-based startup file 
+!
+title:
+   Seagrass example
+
+time_stepping: NTIMES   dt[sec]  NDTFAST  NINFO
+               80000    0.0025        20      1
+
+S-coord: THETA_S,   THETA_B,    Hc (m)
+         0.0d0       0d0       1000000000
+
+start_date:
+2019/01/01 00:00:00
+end_date:
+2019/01/01 00:03:05
+output_time_steps: DT_HIS(H), DT_AVG(H), DT_RST(H)
+                    0.00006944444        24         24
+
+initial: NRREC  filename
+          0
+
+restart:          NRST, NRPFRST / filename
+                  172800   0
+                          seagrass_rst.nc
+
+
+history: LDEFHIS, NWRT, NRPFHIS / filename
+            T     400        0
+                          seagrass_his.nc
+
+
+primary_history_fields: zeta UBAR VBAR  U  V   wrtT(1:NT)
+                          T    T   T   T  T    30*T
+auxiliary_history_fields:   rho Omega W  Akv  Akt  Aks Visc3d Diff3d  HBL HBBL Bostr Bustr Bvstr Wstr Ustr Vstr Shfl rsw rlw lat sen Hm HEL BIOL
+                             T   F    T   F    T    F   F      F       F   F    F    T     T      20*F
+
+gls_history_fields:   TKE  GLS  Lscale
+                      F F F
+
+
+rho0:
+      1025.
+
+bottom_drag:     RDRG(m/s),      RDRG2,   Zob [m],  Cdb_min, Cdb_max
+                 0.              0.       1.e-4       1.d-15    1.d+2
+
+
+gamma2:
+                 -1.
+
+
+nudg_cof:    TauT_in, TauT_out, TauM_in, TauM_out  [days for all]
+                1.      360.      3.      360.
+
+psource:   Nsrc  Isrc  Jsrc  Dsrc  Qbar [m3/s]    Lsrc        Tsrc
+           1
+                 3     3    0     0.0039775         T T         10. 36.
+
+
+obstruction: input file
+               TEST_CASES/obstruction_seagrass_para.txt

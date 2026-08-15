@@ -1,0 +1,12 @@
+#!/bin/bash
+#PBS -l select=1:ncpus=24:mpiprocs=8
+#PBS -P WCHPC
+#PBS -q smp
+#PBS -l walltime=10:00:00
+#PBS -m n
+##############################
+cd $PBS_O_WORKDIR
+
+source ../myenv_mypath.sh
+./make_WRF_compil
+

@@ -1,0 +1,15 @@
+{
+  // Default ISOLITON case
+  "ISOLITON": {
+    "title": "ISOLITON (60 x 1 x 74 : 4440)",
+    "case": "ISOLITON",
+    "plotphy": {
+      "plotphy_script": "./TEST_CASES/plot_isoliton.py",
+      "plotphy_script_input": "isoliton_his.nc",
+    },
+    "splitting": { "1": "1x1", "2": "2x1" },
+    "patches": {},
+    "check_outputs": ["isoliton_his.nc"],
+    "unsupported": ["restart", "openmp"],
+  },
+}

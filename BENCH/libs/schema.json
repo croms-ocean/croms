@@ -1,0 +1,187 @@
+{
+  "type": "object",
+  "properties": {
+    "imports": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "string" }
+      }
+    },
+    "hosts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "ressources": {
+            "type": "object",
+            "properties": {
+              "cpu": { "type": "integer" },
+              "gpu": { "type": "integer" }
+            },
+            "required": ["cpu", "gpu"]
+          },
+          "tuning": {
+            "type": "object",
+            "properties": {
+              "gnu": {
+                "mpi_options": { "type": "string" },
+                "fc": { "type": "string" },
+                "mpifc": { "type": "string" },
+                "extra": { "type": "string" },
+                "standard": { "type": "string" },
+                "debug": { "type": "string" }
+              },
+              "intel": {
+                "mpi_options": { "type": "string" },
+                "fc": { "type": "string" },
+                "mpifc": { "type": "string" },
+                "extra": { "type": "string" },
+                "standard": { "type": "string" },
+                "debug": { "type": "string" }
+              },
+              "nvfortran": {
+                "mpi_options": { "type": "string" },
+                "fc": { "type": "string" },
+                "mpifc": { "type": "string" },
+                "extra": { "type": "string" },
+                "standard": { "type": "string" },
+                "debug": { "type": "string" }
+              },
+              "environ": { "type": "object" },
+              "hwloc_bind": {
+                "type": "object",
+                "properties": {
+                  "openmp": { "type": "string" },
+                  "mpirun": { "type": "string" }
+                },
+                "required": ["openmp", "mpirun"]
+              }
+            },
+            "required": ["gnu", "intel", "nvfortran", "environ"]
+          }
+        },
+        "required": ["ressources", "tuning"]
+      }
+    },
+    "default_selection": {
+      "type": "object",
+      "properties": {
+        "cases": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "variants": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "required": ["cases", "variants"]
+    },
+    "meta_variants": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "string" }
+      }
+    },
+    "meta_cases": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "string" }
+      }
+    },
+    "variants": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "configure": { "type": "string" },
+          "tuning_familly": { "type": "string" },
+          "environ": {
+            "type": "object",
+            "additionalProperties": { "type": ["string", "integer"] }
+          },
+          "command_prefix": { "type": "string" },
+          "unpack": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array"
+            }
+          },
+          "requires": {
+            "type": "object",
+            "additionalProperties": {
+              "type": ["string", "integer"]
+            }
+          }
+        },
+        "required": [
+          "configure",
+          "tuning_familly",
+          "command_prefix",
+          "requires"
+        ]
+      }
+    },
+    "cases": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string" },
+          "case": { "type": "string" },
+          "splitting": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+          },
+          "croco_files_path": { "type": "string" },
+          "plotphy": {
+            "type": "object",
+            "properties": {
+              "plotphy_script": { "type": "string" },
+              "plotphy_script_input": { "type": "string" }
+            }
+          },
+          "cppkeys": {
+            "type": "object",
+            "additionalProperties": { "type": "boolean" }
+          },
+          "patches": {
+            "type": "object",
+            "additionalProperties": {
+              "type": ["array", "object"],
+              "properties": {
+                "what": { "type": "string" },
+                "by": { "type": "string" }
+              },
+              "required": ["what"]
+            }
+          },
+          "check_outputs": {
+            "type": "array",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "unsupported": {
+            "type": "array",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "input_file": { "type": "string" }
+        },
+        "required": ["title", "case", "splitting", "patches", "check_outputs"]
+      }
+    }
+  },
+  "required": [
+    "imports",
+    "hosts",
+    "default_selection",
+    "meta_variants",
+    "cases"
+  ]
+}

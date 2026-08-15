@@ -1,0 +1,178 @@
+!!>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+!! PISCES  :    1  - air-sea exchange                         (nampisext)
+!! namelists    2  - biological parameters                    (nampisbio)
+!!              3  - parameters for nutrient limitations      (nampislim)    
+!!              4  - parameters for phytoplankton             (nampisprod,nampismort)
+!!              5  - parameters for zooplankton               (nampismes,nampiszoo)
+!!              6  - parameters for remineralization          (nampisrem)
+!!              7  - parameters for calcite chemistry         (nampiscal)
+!!              8  - parameters for inputs deposition         (nampissed)
+!!              9  - parameters for Kriest parameterization   (nampiskrp, nampiskrs)
+!!              10 - additional 2D/3D  diagnostics            (nampisdia)
+!!              11 - Damping                                  (nampisdmp)
+!>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+!'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+&nampistrc     !   tracers definition
+!,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+!
+!              !    name   !           title of the field              !   units
+!              !           !                                           !
+!              !           !                                           !
+   tracer(1)   = 'DIC     ' , 'Dissolved inorganic Concentration      ',  'mmol/m3'
+   tracer(2)   = 'Alkalini' , 'Total Alkalinity Concentration         ',  'meq/m3 '
+   tracer(3)   = 'O2      ' , 'Dissolved Oxygen Concentration         ',  'mmol/m3'
+   tracer(4)   = 'CaCO3   ' , 'Calcite Concentration                  ',  'mmol/m3'
+   tracer(5)   = 'PO4     ' , 'Phosphate Concentration                ',  'mmol/m3'
+   tracer(6)   = 'POC     ' , 'Small organic carbon Concentration     ',  'mmol/m3'
+   tracer(7)   = 'Si      ' , 'Silicate Concentration                 ',  'mmol/m3'
+   tracer(8)   = 'PHY     ' , 'Nanophytoplankton Concentration        ',  'mmol/m3'
+   tracer(9)   = 'ZOO     ' , 'Microzooplankton Concentration         ',  'mmol/m3'
+   tracer(10)  = 'DOC     ' , 'Dissolved organic Concentration        ',  'mmol/m3'
+   tracer(11)  = 'PHY2    ' , 'Diatoms Concentration                  ',  'mmol/m3'
+   tracer(12)  = 'ZOO2    ' , 'Mesozooplankton Concentration          ',  'mmol/m3'
+   tracer(13)  = 'DSi     ' , 'Diatoms Silicate Concentration         ',  'mmol/m3'
+   tracer(14)  = 'Fer     ' , 'Dissolved Iron Concentration           ',  'mmol/m3'
+   tracer(15)  = 'BFe     ' , 'Big iron particles Concentration       ',  'mmol/m3'
+   tracer(16)  = 'GOC     ' , 'Big organic carbon Concentration       ',  'mmol/m3'
+   tracer(17)  = 'SFe     ' , 'Small iron particles Concentration     ',  'mmol/m3'
+   tracer(18)  = 'DFe     ' , 'Diatoms iron  Concentration            ',  'mmol/m3'
+   tracer(19)  = 'GSi     ' , 'Sinking biogenic Silicate Concentration',  'mmol/m3'
+   tracer(20)  = 'NFe     ' , 'Nano iron Concentration                ',  'mmol/m3'
+   tracer(21)  = 'NCHL    ' , 'Nano chlorophyl Concentration          ',  'mg/m3'
+   tracer(22)  = 'DCHL    ' , 'Diatoms chlorophyl Concentration       ',  'mg/m3'
+   tracer(23)  = 'NO3     ' , 'Nitrates Concentration                 ',  'mmol/m3'
+   tracer(24)  = 'NH4     ' , 'Ammonium Concentration                 ',  'mmol/m3'
+   tracer(25)  = 'LGW     ' , 'Ligands Concentration                  ',  'mmol/m3'
+   tracer(26)  = 'DON     ' , 'Dissolved organic N Concentration      ',  'mmol/m3'
+   tracer(27)  = 'DOP     ' , 'Dissolved organic P Concentration      ',  'mmol/m3'
+   tracer(28)  = 'PON     ' , 'Small PON Concentration                ',  'mmol/m3'
+   tracer(29)  = 'POP     ' , 'Small POP Concentration                ',  'mmol/m3'
+   tracer(30)  = 'PHYN    ' , 'Nanophytoplankton N biomass            ',  'mmol/m3'
+   tracer(31)  = 'PHYP    ' , 'Nanophytoplankton P biomass            ',  'mmol/m3'
+   tracer(32)  = 'DIAN    ' , 'Diatoms N biomass                      ',  'mmol/m3'
+   tracer(33)  = 'DIAP    ' , 'Diatoms P biomass                      ',  'mmol/m3'
+   tracer(34)  = 'PIC     ' , 'Picophytoplankton C biomass            ',  'mmol/m3'
+   tracer(35)  = 'PICN    ' , 'Picophytoplankton N biomass            ',  'mmol/m3'
+   tracer(36)  = 'PICP    ' , 'Picophytoplankton P biomass            ',  'mmol/m3'
+   tracer(37)  = 'PFe     ' , 'Picophytoplankton Fe biomass           ',  'mmol/m3'
+   tracer(38)  = 'PCHL    ' , 'Picophytoplankton Chl biomass          ',  'mg/m3'
+   tracer(39)  = 'GON     ' , 'Big PON Concentration                  ',  'mmol/m3'
+   tracer(40)  = 'GOP     ' , 'Big POP Concentration                  ',  'mmol/m3'
+/
+!-----------------------------------------------------------------------
+&nampisext     !   air-sea exchange
+!-----------------------------------------------------------------------
+/
+!-----------------------------------------------------------------------
+&nampisatm     !  Atmospheric prrssure 
+!-----------------------------------------------------------------------
+   ln_presatm    = .false.   ! constant atmopsheric pressure (F) or from a file (T)
+   ln_presatmco2 = .false.   ! Read spatialized atm co2 files [ppm] if TRUE
+/
+!-----------------------------------------------------------------------
+&nampis_snk      !  Sedimentation of particles
+!-----------------------------------------------------------------------
+/
+!-----------------------------------------------------------------------
+&nampisbio     !   biological parameters
+!-----------------------------------------------------------------------
+/
+!-----------------------------------------------------------------------
+&namp2zlim     !   parameters for nutrient limitations for PISCES reduced  - ln_p2z
+!-----------------------------------------------------------------------
+/
+!-----------------------------------------------------------------------
+&namp4zlim     !   parameters for nutrient limitations for PISCES std  - ln_p4z
+!-----------------------------------------------------------------------
+/
+!-----------------------------------------------------------------------
+&namp5zlim     !   parameters for nutrient limitations PISCES QUOTA    - ln_p5z
+!-----------------------------------------------------------------------
+/
+!-----------------------------------------------------------------------
+&namp5zquota   !   parameters for nutrient limitations PISCES quota    - ln_p5z
+!-----------------------------------------------------------------------
+/
+!-----------------------------------------------------------------------
+&nampisopt     !   parameters for optics
+!-----------------------------------------------------------------------
+!              !  file name       ! frequency (hours) ! variable  ! time interp. !  clim  ! 'yearly'/ ! weights  ! rotation ! land/sea mask !
+!              !                  !  (if <0  months)  !   name    !   (logical)  !  (T/F) ! 'monthly' ! filename ! pairing  ! filename      !
+   ln_varpar   =  .false.   ! boolean for PAR variable
+/ 
+!-----------------------------------------------------------------------
+&namp2zprod    !   parameters for phytoplankton growth for PISCES reduced  - ln_p2z
+!-----------------------------------------------------------------------
+/
+!-----------------------------------------------------------------------
+&namp4zprod    !   parameters for phytoplankton growth for PISCES std  - ln_p4z
+!-----------------------------------------------------------------------
+/
+!-----------------------------------------------------------------------
+&namp5zprod    !   parameters for phytoplankton growth for PISCES quota- ln_p5z
+!-----------------------------------------------------------------------
+/
+!-----------------------------------------------------------------------
+&namp2zmort    !   parameters for phytoplankton sinks for PISCES std   - ln_p2z
+!-----------------------------------------------------------------------
+/
+!-----------------------------------------------------------------------
+&namp4zmort    !   parameters for phytoplankton sinks for PISCES std   - ln_p4z
+!-----------------------------------------------------------------------
+/
+!-----------------------------------------------------------------------
+&namp5zmort    !   parameters for phytoplankton sinks for PISCES quota - ln_p5z
+!-----------------------------------------------------------------------
+/
+!-----------------------------------------------------------------------
+&namp4zmes     !   parameters for mesozooplankton for PISCES std       - ln_p4z
+!-----------------------------------------------------------------------
+/
+!-----------------------------------------------------------------------
+&namp5zmes     !   parameters for mesozooplankton
+!-----------------------------------------------------------------------
+/
+!-----------------------------------------------------------------------
+&namp2zzoo     !   parameters for microzooplankton for PISCES reduced  - ln_p2z
+!-----------------------------------------------------------------------
+/
+!-----------------------------------------------------------------------
+&namp4zzoo     !   parameters for microzooplankton for PISCES std      - ln_p4z
+!-----------------------------------------------------------------------
+/
+!-----------------------------------------------------------------------
+&namp5zzoo     !   parameters for microzooplankton
+!-----------------------------------------------------------------------
+/
+!-----------------------------------------------------------------------
+&nampisfer     !   parameters for iron chemistry
+!-----------------------------------------------------------------------
+/
+!-----------------------------------------------------------------------  
+&nampisrem     !   parameters for remineralization
+!-----------------------------------------------------------------------
+/
+!-----------------------------------------------------------------------
+&nampispoc     !   parameters for organic particles
+!-----------------------------------------------------------------------
+/
+!-----------------------------------------------------------------------
+&nampisdiaz     !   Namelist parameters for diazotrophy
+!-----------------------------------------------------------------------
+/
+!-----------------------------------------------------------------------
+&nampiscal     !   parameters for Calcite chemistry
+!-----------------------------------------------------------------------
+/
+!-----------------------------------------------------------------------
+&nampisbc     !   parameters for inputs deposition
+!-----------------------------------------------------------------------
+/
+!-----------------------------------------------------------------------
+&nampislig     !   Namelist parameters for ligands, nampislig
+!-----------------------------------------------------------------------
+/
+!-----------------------------------------------------------------------
+&nampissed     !   Namelist parameters for sediment mobilisation
+!-----------------------------------------------------------------------
+/

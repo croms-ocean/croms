@@ -1,0 +1,114 @@
+/* Basic styling */
+body {
+   margin: 0;
+   font-family: Arial, sans-serif;
+   display: flex;
+}
+
+h1 {
+   text-align: center;
+}
+
+/* Style the tree */
+.tree {
+   padding-left: 20px;
+}
+
+/* Style the <details> element for collapsibility */
+details {
+   margin-bottom: 5px;
+}
+
+/* Style for the <summary> to make it clear it's clickable */
+summary {
+   font-weight: bold;
+   cursor: pointer;
+}
+
+/* Style links inside the tree */
+.tree a {
+   text-decoration: none;
+   color: #0073e6;
+   padding-left: 20px;
+}
+
+/* Hover effect for links */
+.tree a:hover {
+   text-decoration: underline;
+}
+
+/* iframe styling */
+iframe {
+   width: 100%;
+   height: 500px;
+   border: 1px solid #ccc;
+   margin-top: 20px;
+}
+
+
+nav {
+  width: 250px;
+  background-color: #f8f9fa;
+  border-right: 1px solid #ddd;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+nav h2 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+nav li {
+  margin-bottom: 10px;
+}
+nav a {
+  text-decoration: none;
+  color: #007bff;
+}
+nav a:hover {
+  text-decoration: underline;
+}
+main {
+  flex: 1;
+  padding: 20px;
+}
+main h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+table {
+   width: 100%;
+   border-collapse: collapse;
+   margin-bottom: 20px;
+   background: white;
+}
+th, td {
+   border: 1px solid #ddd;
+   padding: 8px;
+   text-align: center;
+}
+th {
+   background-color: #007BFF;
+   color: white;
+}
+tr:nth-child(even) {
+   background-color: #f9f9f9;
+}
+.status-true {
+   color: green;
+   font-weight: bold;
+}
+.status-false {
+   color: red;
+   font-weight: bold;
+}
+.status-null {
+   color: gray;
+   font-style: italic;
+}

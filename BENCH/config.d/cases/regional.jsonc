@@ -1,0 +1,300 @@
+{
+  // BENGUELA cases
+  "BENGUELA_LR_TIDES_BULK": {
+    "title": "BENGUELA_LR_TIDES_BULK",
+    "case": "REGIONAL",
+    "plotphy": {
+      "plotphy_script": "./TEST_CASES/plot_regional.py",
+      "plotphy_script_input": "CROCO_FILES/croco_his.nc",
+    },
+    "croco_files_path": "LR_CROCO_FILES_BCK",
+    "splitting": { "1": "1x1", "2": "1x2", "4": "2x2" },
+    "cppkeys": {
+      "TIDES": true,
+      "BULK_FLUX": true,
+    },
+    "patches": {},
+    "check_outputs": ["CROCO_FILES/croco_his.nc"],
+  },
+  "BENGUELA_LR_BULK": {
+    "title": "BENGUELA_LR_BULK",
+    "case": "REGIONAL",
+    "plotphy": {
+      "plotphy_script": "./TEST_CASES/plot_regional.py",
+      "plotphy_script_input": "CROCO_FILES/croco_his.nc",
+    },
+    "croco_files_path": "LR_CROCO_FILES_BCK",
+    "splitting": { "1": "1x1", "2": "1x2", "4": "2x2" },
+    "cppkeys": {
+      "FRC_BRY": true,
+      "BULK_FLUX": true,
+    },
+    "patches": {},
+    "check_outputs": ["CROCO_FILES/croco_his.nc"],
+  },
+  "BENGUELA_LR_BULKONLINE": {
+    "title": "BENGUELA_LR_BULKONLINE",
+    "case": "REGIONAL",
+    "plotphy": {
+      "plotphy_script": "./TEST_CASES/plot_regional.py",
+      "plotphy_script_input": "CROCO_FILES/croco_his.nc",
+    },
+    "croco_files_path": "LR_CROCO_FILES_BCK",
+    "splitting": { "1": "1x1", "2": "1x2", "4": "2x2" },
+    "cppkeys": {
+      "FRC_BRY": true,
+      "BULK_FLUX": true,
+      "ONLINE": true,
+      "BULK_MONTH_1DIGIT": true,
+    },
+    "patches": {},
+    "check_outputs": ["CROCO_FILES/croco_his.nc"],
+  },
+  "BENGUELA_LR_CFB": {
+    "title": "BENGUELA_LR_CFB",
+    "case": "REGIONAL",
+    "plotphy": {
+      "plotphy_script": "./TEST_CASES/plot_regional.py",
+      "plotphy_script_input": "CROCO_FILES/croco_his.nc",
+    },
+    "croco_files_path": "LR_CROCO_FILES_BCK",
+    "splitting": { "1": "1x1", "2": "1x2", "4": "2x2" },
+    "cppkeys": {
+      "FRC_BRY": true,
+      "SFLUX_CFB": true,
+      "BULK_FLUX": false,
+    },
+    "patches": {},
+    "check_outputs": ["CROCO_FILES/croco_his.nc"],
+  },
+  "BENGUELA_LR_CFBBULK": {
+    "title": "BENGUELA_LR_CFBBULK",
+    "case": "REGIONAL",
+    "plotphy": {
+      "plotphy_script": "./TEST_CASES/plot_regional.py",
+      "plotphy_script_input": "CROCO_FILES/croco_his.nc",
+    },
+    "croco_files_path": "LR_CROCO_FILES_BCK",
+    "splitting": { "1": "1x1", "2": "1x2", "4": "2x2" },
+    "cppkeys": {
+      "FRC_BRY": true,
+      "BULK_FLUX": true,
+      "SFLUX_CFB": true,
+    },
+    "patches": {},
+    "check_outputs": ["CROCO_FILES/croco_his.nc"],
+  },
+  "BENGUELA_LR_CFBBULKONLINE": {
+    "title": "BENGUELA_LR_CFBBULKONLINE",
+    "case": "REGIONAL",
+    "plotphy": {
+      "plotphy_script": "./TEST_CASES/plot_regional.py",
+      "plotphy_script_input": "CROCO_FILES/croco_his.nc",
+    },
+    "croco_files_path": "LR_CROCO_FILES_BCK",
+    "splitting": { "1": "1x1", "2": "1x2", "4": "2x2" },
+    "cppkeys": {
+      "FRC_BRY": true,
+      "BULK_FLUX": true,
+      "SFLUX_CFB": true,
+      "ONLINE": true,
+      "BULK_MONTH_1DIGIT": true,
+    },
+    "patches": {},
+    "check_outputs": ["CROCO_FILES/croco_his.nc"],
+  },
+  "BENGUELA_LR_CFBBULKONLINERUNOFF": {
+    "title": "BENGUELA_LR_CFBBULKONLINERUNOFF",
+    "case": "REGIONAL",
+    "plotphy": {
+      "plotphy_script": "./TEST_CASES/plot_regional.py",
+      "plotphy_script_input": "CROCO_FILES/croco_his.nc",
+    },
+    "croco_files_path": "LR_CROCO_FILES_BCK",
+    "splitting": { "1": "1x1", "2": "1x2", "4": "2x2" },
+    "cppkeys": {
+      "FRC_BRY": true,
+      "BULK_FLUX": true,
+      "SFLUX_CFB": true,
+      "ONLINE": true,
+      "BULK_MONTH_1DIGIT": true,
+      "PSOURCE": true,
+      "PSOURCE_NCFILE": true,
+    },
+    "patches": {
+      // Change runoff file
+      "TEST_CASES/croco.in.Regional": {
+        "mode": "replace",
+        "what": "   CROCO_FILES/croco_runoff.nc",
+        "by": "    CROCO_FILES/croco_runoff.nc_2rivx1000",
+        "descr": "Set croco_runoff file to croco_runoff.nc_2rivx1000",
+      },
+    },
+    "check_outputs": ["CROCO_FILES/croco_his.nc"],
+  },
+  "BENGUELA_LR_CLIM": {
+    "title": "BENGUELA_LR_CLIM",
+    "case": "REGIONAL",
+    "croco_files_path": "LR_CROCO_FILES_BCK",
+    "splitting": { "1": "1x1", "2": "1x2", "4": "2x2" },
+    "cppkeys": {
+      "CLIMATOLOGY": true,
+      "FRC_BRY": false,
+      "BULK_FLUX": false,
+    },
+    "patches": {},
+    "check_outputs": ["CROCO_FILES/croco_his.nc"],
+  },
+  "BENGUELA_LR_BRY": {
+    "title": "BENGUELA_LR_BRY",
+    "case": "REGIONAL",
+    "croco_files_path": "LR_CROCO_FILES_BCK",
+    "splitting": { "1": "1x1", "2": "1x2", "4": "2x2" },
+    "cppkeys": {
+      "FRC_BRY": true,
+      "BULK_FLUX": false,
+    },
+    "patches": {},
+    "check_outputs": ["CROCO_FILES/croco_his.nc"],
+  },
+  "BENGUELA_LR_BRY_PISCES": {
+    "title": "BENGUELA_LR_BRY_PISCES",
+    "case": "REGIONAL",
+    "croco_files_path": "LR_CROCO_FILES_BCK",
+    "splitting": { "1": "1x1", "2": "1x2", "4": "2x2" },
+    "cppkeys": {
+      "FRC_BRY": true,
+      "BIO_BioEBUS": false,
+      "BIOLOGY": true,
+      "PISCES": true,
+      "BULK_FLUX": false,
+    },
+    "patches": {
+      // Change restart file
+      "namelist_pisces_cfg": {
+        "mode": "insert-after",
+        "what": "&nampisrst",
+        "insert": "cn_pisrst_in  = 'croco_rst_pisces.nc'",
+        "descr": "Set pisces restart file (in case of restart option)",
+      },
+    },
+    "unsupported": ["openmp"],
+    // error in bry_time set_cycle in restart
+    "check_outputs": ["CROCO_FILES/croco_his.nc"],
+  },
+  "BENGUELA_LR_BSTRESS_FASTGLS": {
+    "title": "BENGUELA_LR_BSTRESS_FASTGLS",
+    "case": "REGIONAL",
+    "croco_files_path": "LR_CROCO_FILES_BCK",
+    "splitting": { "1": "1x1", "2": "1x2", "4": "2x2" },
+    "cppkeys": {
+      "FRC_BRY": true,
+      "BULK_FLUX": true,
+      "GLS_MIXING": true,
+      "LMD_MIXING": false,
+      "BSTRESS_FAST": true,
+    },
+    "patches": {},
+    "unsupported": ["openmp"],
+    "check_outputs": ["CROCO_FILES/croco_his.nc"],
+  },
+  "BENGUELA_LR_BSTRESS_FASTKPP": {
+    "title": "BENGUELA_LR_BSTRESS_FASTKPP",
+    "case": "REGIONAL",
+    "croco_files_path": "LR_CROCO_FILES_BCK",
+    "splitting": { "1": "1x1", "2": "1x2", "4": "2x2" },
+    "cppkeys": {
+      "FRC_BRY": true,
+      "BULK_FLUX": true,
+      "LMD_MIXING": true,
+      "BSTRESS_FAST": true,
+    },
+    "patches": {},
+    "unsupported": ["openmp"],
+    "check_outputs": ["CROCO_FILES/croco_his.nc"],
+  },
+  "BENGUELA_LR_AGRIF_1WAY": {
+    "title": "BENGUELA_LR_AGRIF_1WAY",
+    "case": "REGIONAL",
+    "croco_files_path": "LR_CROCO_FILES_BCK",
+    "splitting": { "1": "1x1", "2": "1x2", "4": "2x2" },
+    "cppkeys": {
+      "FRC_BRY": true,
+      "BULK_FLUX": false,
+      "AGRIF": true,
+      "DIAGNOSTICS_TS": true,
+    },
+    "patches": {},
+    "check_outputs": ["CROCO_FILES/croco_his.nc", "CROCO_FILES/croco_his.nc.1"],
+  },
+  "BENGUELA_LR_AGRIF_2WAY": {
+    "title": "BENGUELA_LR_AGRIF_2WAY",
+    "case": "REGIONAL",
+    "croco_files_path": "LR_CROCO_FILES_BCK",
+    "splitting": { "1": "1x1", "2": "1x2", "4": "2x2" },
+    "cppkeys": {
+      "FRC_BRY": true,
+      "BULK_FLUX": false,
+      "AGRIF": true,
+      "AGRIF_2WAY": true,
+      "DIAGNOSTICS_TS": true,
+    },
+    "patches": {},
+    "check_outputs": ["CROCO_FILES/croco_his.nc", "CROCO_FILES/croco_his.nc.1"],
+  },
+  // BENGUELA NBQ
+  "BENGUELA_LR_NBQ": {
+    "title": "BENGUELA_LR_NBQ",
+    "case": "REGIONAL",
+    "croco_files_path": "LR_CROCO_FILES_BCK",
+    "splitting": { "1": "1x1", "2": "1x2", "4": "2x2" },
+    "cppkeys": {
+      "NBQ": true,
+    },
+    "patches": {
+      // Change the ndtfast
+      "TEST_CASES/croco.in.Regional": {
+        "mode": "replace",
+        "what": "                384      3600      60      1",
+        "by": "                384      3600      80      1",
+        "descr": "Set stepping ndtfast = 80",
+      },
+    },
+    "check_outputs": ["CROCO_FILES/croco_his.nc"],
+    "unsupported": ["restart"], // error in check on restart
+  },
+  // TODO check runoff position and change croco.in accordingly
+  // "BENGUELA_VHR_TIDES_BULK": {
+  //   "title": "BENGUELA_VHR_TIDES_BULK",
+  //   "case": "REGIONAL",
+  //   "plotphy" : { "plotphy_script": "./TEST_CASES/plot_regional.py",
+  //   "croco_files_path": "VHR_CROCO_FILES_BCK",
+  //   "splitting": {
+  //     "1": "1x1",
+  //     "2": "1x2",
+  //     "4": "2x2",
+  //     "6": "1x6",
+  //     "8": "2x4",
+  //     "12": "2x6",
+  //     "16": "1x16",
+  //     "32": "1x32",
+  //     "64": "1x64",
+  //   },
+  //   "cppkeys": {
+  //     "BENGUELA_VHR": true,
+  //     "TIDES": true,
+  //     "BULK_FLUX": true,
+  //     "BENGUELA_LR": false,
+  //   },
+  //   "patches": {
+  //     // CHange the ndtfast
+  //     "TEST_CASES/croco.in.Regional": {
+  //       "mode": "replace",
+  //       "what": "                3840      3600      60      1",
+  //       "by": "                3840      900      60      1",
+  //       "descr": "Set stepping dt = 900",
+  //     },
+  //   },
+  //   "check_outputs": ["CROCO_FILES/croco_his.nc"],
+  // },
+}

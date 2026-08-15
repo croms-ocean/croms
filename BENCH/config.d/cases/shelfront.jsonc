@@ -1,0 +1,14 @@
+{
+  // SHELFRONT
+  "SHELFRONT": {
+    "title": "SHELFRONT - (3 x 40 x 10 : 720)",
+    "case": "SHELFRONT",
+    "plotphy": {
+      "plotphy_script": "./TEST_CASES/plot_shelfront.py",
+      "plotphy_script_input": "shelfront_his.nc",
+    },
+    "splitting": { "1": "1x1", "2": "1x2" },
+    "patches": {},
+    "check_outputs": ["shelfront_his.nc"],
+  },
+}

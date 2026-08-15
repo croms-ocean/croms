@@ -1,0 +1,57 @@
+{
+  // BASIN a bit larger
+  "VORTEX": {
+    "title": "VORTEX - (60 x 60 x 10 : 600)",
+    "case": "VORTEX",
+    "plotphy": {
+      "plotphy_script": "./TEST_CASES/plot_vortex.py",
+      "plotphy_script_input": "vortex_his.nc",
+    },
+    "splitting": { "1": "1x1", "2": "1x2", "4": "2x2" },
+    "patches": {},
+    "check_outputs": ["vortex_his.nc"],
+  },
+  "VORTEX_AGRIF_1WAY": {
+    "title": "VORTEX - (60 x 60 x 10 : 600)",
+    "case": "VORTEX",
+    "plotphy": {
+      "plotphy_script": "./TEST_CASES/plot_vortex.py",
+      "plotphy_script_input": "vortex_his.nc",
+    },
+    "splitting": { "1": "1x1", "2": "1x2", "4": "2x2" },
+    "patches": {
+      "AGRIF_FixedGrids.in": {
+        "mode": "replace",
+        "what": "17    33     13    27   3  3  3  3",
+        "by": "21    40    21    40    3    3    3    3",
+        "descr": "Set AGRIF_FixedGrids.in",
+      },
+    },
+    "cppkeys": {
+      "AGRIF": true,
+    },
+    "check_outputs": ["vortex_his.nc"],
+  },
+  "VORTEX_AGRIF_2WAY": {
+    "title": "VORTEX - (60 x 60 x 10 : 600)",
+    "case": "VORTEX",
+    "plotphy": {
+      "plotphy_script": "./TEST_CASES/plot_vortex.py",
+      "plotphy_script_input": "vortex_his.nc",
+    },
+    "splitting": { "1": "1x1", "2": "1x2", "4": "2x2" },
+    "patches": {
+      "AGRIF_FixedGrids.in": {
+        "mode": "replace",
+        "what": "17    33     13    27   3  3  3  3",
+        "by": "21    40    21    40    3    3    3    3",
+        "descr": "Set AGRIF_FixedGrids.in",
+      },
+    },
+    "cppkeys": {
+      "AGRIF": true,
+      "AGRIF_2WAY": true,
+    },
+    "check_outputs": ["vortex_his.nc"],
+  },
+}

@@ -1,0 +1,51 @@
+{
+  // mpi
+  "mpi-{tasks}": {
+    "configure": "--with-optim=mpi --with-splitting={case.splitting.{tasks}} FC=mpif90",
+    "tuning_familly": "gnu",
+    "environ": {
+      "OMP_NUM_THREADS": 1,
+    },
+    "command_prefix": "{tuning.hwloc_bind.mpirun} mpirun -np {tasks} {tuning.gnu.mpi_options}",
+    "unpack": {
+      "tasks": [2, 4, 6, 8, 16, 32, 64],
+    },
+    "requires": {
+      "cpu": "{tasks}",
+    },
+  },
+
+  // mpi-ifort
+  "mpi-ifort-{tasks}": {
+    "configure": "--with-optim=mpi --with-splitting={case.splitting.{tasks}} FC=mpiifort",
+    "tuning_familly": "intel",
+    "tuning_fflags": "standard",
+    "environ": {
+      "OMP_NUM_THREADS": 1,
+    },
+    "command_prefix": "{tuning.hwloc_bind.mpirun} mpirun -np {tasks} {tuning.intel.mpi_options}",
+    "unpack": {
+      "tasks": [2, 4, 6, 8, 16, 32, 64],
+    },
+    "requires": {
+      "cpu": "{tasks}",
+    },
+  },
+
+  // mpi-ifx
+  "mpi-ifx-{tasks}": {
+    "configure": "--with-optim=mpi --with-splitting={case.splitting.{tasks}} FC=mpiifx",
+    "tuning_familly": "intel",
+    "tuning_fflags": "standard",
+    "environ": {
+      "OMP_NUM_THREADS": 1,
+    },
+    "command_prefix": "{tuning.hwloc_bind.mpirun} mpirun -np {tasks} {tuning.intel.mpi_options}",
+    "unpack": {
+      "tasks": [2, 4, 6, 8, 16, 32, 64],
+    },
+    "requires": {
+      "cpu": "{tasks}",
+    },
+  },
+}

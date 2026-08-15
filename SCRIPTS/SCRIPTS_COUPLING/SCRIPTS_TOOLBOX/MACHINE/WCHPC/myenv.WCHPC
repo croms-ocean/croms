@@ -1,0 +1,47 @@
+#!/bin/bash
+
+#################################################################
+################### FOR COMPILATIONS ############################
+#################################################################
+
+module purge
+module load chpc/parallel_studio_xe/2020u1
+module load chpc/earth/netcdf/4.7.4/intel2020u1
+module load chpc/earth/nedit/5.7
+module load chpc/math/matlab/R2020a
+
+alias lr='ls -rlt'
+alias rm='rm -i'
+alias mv='mv -i'
+alias cp='cp -i'
+alias qsubi1='qsub -X -I -l select=1:ncpus=1:mpiprocs=1 -q R5240444 -l walltime=10:00:00 -P WCHPC'
+alias qs="qstat -u $USER"
+alias mat='matlab -nodesktop'
+
+export PATH=/apps/chpc/earth/NetCDF-c461-f444-intel2020/bin:$PATH
+
+export LD_LIBRARY_PATH=/apps/chpc/earth/NetCDF-c461-f444-intel2020/lib:$LD_LIBRARY_PATH
+export LIBRARY_PATH=$LIBRARY_PATH:/apps/chpc/earth/NetCDF-c461-f444-intel2020/lib
+export NETCDF=/apps/chpc/earth/NetCDF-c461-f444-intel2020
+export NETCDF_CONFIG=${NETCDF}/bin/nf-config
+export PNETCDF=/apps/chpc/earth/NetCDF-c461-f444-intel2020
+export HDF5=/apps/chpc/earth/NetCDF-c461-f444-intel2020
+
+# -- Option for job launching
+export MPI_LAUNCH='mpirun'
+export MPI_ext="-configfile"
+export ncomod='chpc/earth/NCO/4.9.3'
+
+#----------------------------------------------------------------
+# Environment variables related to compilers
+#----------------------------------------------------------------
+export CC=icc
+export CXX=icc
+export FC=ifort
+export F77=ifort
+export F90=ifort
+export MPICC=/apps/compilers/intel/parallel_studio_xe_2020_update1/compilers_and_libraries/linux/mpi/intel64/bin/mpicc
+export MPIF90=/apps/compilers/intel/parallel_studio_xe_2020_update1/compilers_and_libraries/linux/mpi/intel64/bin/mpiifort
+export MPIF77=/apps/compilers/intel/parallel_studio_xe_2020_update1/compilers_and_libraries/linux/mpi/intel64/bin/mpiifort
+
+

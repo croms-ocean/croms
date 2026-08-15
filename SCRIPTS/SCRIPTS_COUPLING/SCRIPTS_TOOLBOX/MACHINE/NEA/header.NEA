@@ -1,0 +1,18 @@
+#!/bin/bash
+#SBATCH --job-name=<exp>
+#SBATCH --partition=ivy
+#SBATCH -n <nmpi>
+#SBATCH --time=<timedur>
+#SBATCH --output=<exp>.out
+#SBATCH --error=<exp>.out
+
+cd ${SLURM_SUBMIT_DIR}
+scontrol show hostnames > $SLURM_SUBMIT_DIR/nodes.file
+echo "Number of Slurm CPUs asked: ${SLURM_NTASKS} procs"
+#===============================================================================
+
+source ./myenv_mypath.sh
+ulimit -s unlimited
+# < insert here variables definitions > !!! DO NOT REMOVE THIS LINE (used by submitjob) !!!
+
+

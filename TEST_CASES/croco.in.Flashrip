@@ -1,0 +1,81 @@
+title:
+        Flash rip test case
+        
+time_stepping: NTIMES   dt[sec]  NDTFAST  NINFO
+               17680     0.05      5      10
+time_stepping_nbq: NDTNBQ    CSOUND_NBQ    VISC2_NBQ
+                     1          50          0.01 
+
+S-coord: THETA_S,   THETA_B,    Hc (m)
+           0.         0.        1.e16
+
+wave_maker:  amp [m], prd [s], ang [deg], ang spread [deg], freq spread (gamma)
+             0.24     13.       0.         30.               3.3 
+
+grid:  filename
+                          rip_grd.nc 
+
+initial: NRREC  filename
+         0
+                          rip_rst.nc
+
+restart:          NRST, NRPFRST / filename
+                  17680   -1
+                          rip_rst.nc
+
+history: LDEFHIS, NWRT, NRPFHIS / filename
+            T     1040        0
+                          rip_his.nc
+
+averages: NTSAVG, NAVG, NRPFAVG / filename
+            1     1040         0
+                          rip_avg.nc
+
+primary_history_fields: zeta UBAR VBAR  U  V   wrtT(1:NT)
+                          T    T   T    T  T    10*T
+auxiliary_history_fields:   rho Omega W  Akv  Akt  Aks Visc3d Diff3d  HBL HBBL Bostr Wstr Ustr Vstr Shfl rsw rlw lat sen Hm HEL BIOL
+                             F   F    T   F    F    F   F      F       F   F    F     20*F
+gls_history_fields:   TKE  GLS  Lscale
+                       T     F    F
+
+primary_averages: zeta UBAR VBAR  U  V   wrtT(1:NT)
+                   T    T    T    T  T   10*T 
+auxiliary_averages:   rho Omega W  Akv  Akt  Aks Visc3d Diff3d  HBL HBBL Bostr Wstr Ustr Vstr Shfl rsw rlw lat sen Hm HEL BIOL
+                       F   F    T   T    F    F   F      F       F   F    F     20*F
+gls_averages:   TKE  GLS  Lscale
+                 T     F    F
+
+rho0:
+      1024.4
+
+bottom_drag:     RDRG(m/s),      RDRG2,   Zob [m],  Cdb_min, Cdb_max
+                 0.0e-04         0.0e-3   1.0e-5      1.d-5    1.d-2
+
+gamma2:
+                 1.
+
+lin_EOS_cff:  R0 [86kg/m3], T0 [Celsius], S0 [PSU], TCOEF [1/Celsius], SCOEF [1/PSU]
+               30.           0.            0.        0.28                0.
+
+sponge:          X_SPONGE [m],    V_SPONGE [m^2/sec]
+                   XXX                XXX
+
+lateral_visc:   VISC2,    VISC4    [m^2/sec for all]
+                 0.       0.
+
+tracer_diff2: TNU2(1:NT)           [m^2/sec for all]
+               50*0.d0 
+
+nudg_cof:    TauT_in, TauT_out, TauM_in, TauM_out  [days for all]
+              1.e-5     1.e-2    1.e-5    1.e-2
+
+diags_eddy:   ldefdiags_eddy, nwrtdiags_eddy, nrpfdiags_eddy /filename
+                   F           1040                  0
+                                               rip_diags_eddy.nc
+diags_eddy_avg: ldefdiags_eddy_avg  ntsdiags_eddy_avg  nwrtdiags_eddy_avg  nprfdiags_eddy_avg /filename
+                   T                       1               1040                  0
+                                               rip_diags_eddy_avg.nc
+diags_eddy_history_fields: diags_eddy
+                            F
+diags_eddy_average_fields: diags_eddy_avg
+                            T

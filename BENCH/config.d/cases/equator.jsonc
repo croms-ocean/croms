@@ -1,0 +1,11 @@
+{
+  // EQUATOR
+  "EQUATOR": {
+    "title": "EQUATOR - (40 x 32 x 32 : 3600)",
+    "case": "EQUATOR",
+    "splitting": { "1": "1x1", "2": "2x1", "4": "2x2" },
+    "patches": {},
+    "check_outputs": ["equator_his.nc"],
+    "unsupported": ["restart"],
+  },
+}

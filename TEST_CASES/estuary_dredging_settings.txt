@@ -1,0 +1,2 @@
+#Dredging_area depth(m/mean sea level) Dumping_area (write none if no dumping in the domain)
+zone_1 11. dump_1

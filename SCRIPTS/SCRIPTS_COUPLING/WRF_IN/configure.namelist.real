@@ -1,0 +1,83 @@
+#========================================================================
+# Configuration parameters to be used in run_wps.bash and run_real.bash
+# to generate namelist.wps and namelist.input
+#========================================================================
+#
+# Further Information:   
+# http://www.croco-ocean.org
+#  
+# This file is part of CROCOTOOLS
+#
+# CROCOTOOLS is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published
+# by the Free Software Foundation; either version 2 of the License,
+# or (at your option) any later version.
+#
+# CROCOTOOLS is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+# MA  02111-1307  USA
+#
+# Copyright (c) 2018 S. Jullien
+# swen.jullien@ifremer.fr
+# --------------------------------------------------
+
+# Dates to process
+#-----------------
+start_y=2005
+start_m=01
+start_d=01
+start_h=00
+
+end_y=2005
+end_m=01
+end_d=31
+end_h=18
+
+# Domains
+#---------
+max_domains=1       # Nb domains
+#
+# Parent domain (d01)
+dx=30               # horizonal resolution dx=dy in [kml]
+xdim_d01=56         # number of points in x
+ydim_d01=50         # number of points in y
+#
+# Nest 1 (d02) 
+refine_d02=5        # refinement coefficient from parent
+i_str_d02=32        # starting index in x-dir from the parent domain
+j_str_d02=153       # starting index in y-dir from the parent domain
+xdim_d02=456        # nb of points, must check: xdim_child=N*refine_coef+1
+ydim_d02=476        # nb of points, must check: ydim_child=M*refine_coef+1
+#
+# Nest 2 (d03)
+refine_d03=3        # refinement coefficient from previous nest
+i_str_d03=35        # starting index in x-dir from the previous nest
+j_str_d03=24        # starting index in y-dir from the previous nest
+xdim_d03=277        # nb of points, must check: xdim_child=N*refine_coef+1
+ydim_d03=349        # nb of points, must check: ydim_child=M*refine_coef+1
+
+# Vertical grid 
+#--------------
+nbvertlevel=60      # number of WRF vertical levels
+ptop=5000           # WRF top pressure
+
+# Time step
+#-----------
+dt=150              # time step for parent domain
+
+# Physics
+#---------
+isftcflx=0          # Cd formulation = 0 default / = 5 for wave cpl  (cf README)
+
+# Information on INPUT DATA from WPS/metgrid
+#-------------------------------------------
+nbmetlevel=38       # number of WPS BOUNDARAY DATA vertical levels 
+nbmetsoil=4         # number of WPS INPUT DATA soil levels
+obc_freq_h=6        # boundary condition frequency [hour]
+sst_interval_m=360  # interval between SST updates  [minutes]

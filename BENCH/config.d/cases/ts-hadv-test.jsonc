@@ -1,0 +1,19 @@
+{
+  // TS_HADV_TEST
+  "TS_HADV_TEST": {
+    "title": "TS_HADV_TEST - (100 x 100 x 5 : 50000)",
+    "case": "TS_HADV_TEST",
+    "splitting": {
+      "1": "1x1",
+      "2": "1x2",
+      "4": "2x2",
+      "6": "2x3",
+      "8": "2x4",
+      "16": "4x4",
+    },
+    "patches": {},
+    "input_file": "TEST_CASES/croco.in.TS_adv_rep",
+    "check_outputs": ["croco_his_body_rot.nc"],
+    "unsupported": ["restart", "openmp"],
+  },
+}

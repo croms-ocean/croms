@@ -1,0 +1,12 @@
+{
+  // Default KH_INST case
+  "KH_INST": {
+    "title": "KH_INST (128 x 1 x 128 : 16384)",
+    "case": "KH_INST",
+    "splitting": { "1": "1x1", "2": "2x1", "4": "4x1" },
+    "patches": {},
+    "input_file": "TEST_CASES/croco.in.KH_INST",
+    "check_outputs": ["khinst_his.nc"],
+    "unsupported": ["openmp"],
+  },
+}

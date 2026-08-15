@@ -1,0 +1,15 @@
+{
+  // Default KILPATRICK case
+  "KILPATRICK": {
+    "title": "KILPATRICK - (600 x 3 x 2 : 1800)",
+    "case": "KILPATRICK",
+    "plotphy": {
+      "plotphy_script": "./TEST_CASES/plot_kilpatrick.py",
+      "plotphy_script_input": "croco_abl_his.nc",
+    },
+    "splitting": { "1": "1x1", "2": "2x1", "4": "4x1", "6": "6x1", "8": "8x1" },
+    "patches": {},
+    "check_outputs": ["croco_abl_his.nc", "croco_his.nc"],
+    "unsupported": ["restart", "openmp"],
+  },
+}
